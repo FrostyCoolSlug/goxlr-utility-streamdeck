@@ -1,0 +1,56 @@
+{
+	"SDKVersion": 2,
+	"Author": "Craig McLure",
+	"CodePath": "app.html",
+	"Description": "Stream Deck Plugin for the GoXLR Utility",
+	"Name": "GoXLR Utility StreamDeck",
+	"Icon": "actions/goxlr-utility/assets/goxlr-white",
+	"URL": "https://github.com/frostycoolslug/goxlr-utility-streamdeck",
+	"Version": "1.0.0",
+	"Software": {
+		"MinimumVersion": "5.0"
+	},
+	"OS": [
+		{
+			"Platform": "mac",
+			"MinimumVersion": "10.11"
+		},
+		{
+			"Platform": "windows",
+			"MinimumVersion": "10"
+		}
+	],
+
+	"Category": "GoXLR Utility",
+	"CategoryIcon": "actions/goxlr-utility/assets/goxlr-white",
+	"Actions": [
+		{
+			"Icon": "actions/goxlr-utility/assets/goxlr-white",
+			"Name": "Load Profile",
+			"States": [
+				{
+					"Image": "actions/goxlr-utility/assets/goxlr-white"
+				}
+			],
+			"Tooltip": "Loads a GoXLR Profile",
+			"UUID": "com.frostycoolslug.goxlr-utility.profile",
+			"PropertyInspectorPath": "actions/goxlr-utility/property-inspector/load-profile/inspector.html"
+		},
+
+		{
+			"Icon": "actions/goxlr-utility/assets/goxlr-white",
+			"Name": "Toggle Route",
+			"States": [
+				{
+					"Image": "actions/goxlr-utility/assets/goxlr-white"
+				},
+				{
+					"Image": "actions/goxlr-utility/assets/goxlr-grey"
+				}
+			],
+			"Tooltip": "Toggles a specific route on the GoXLR",
+			"UUID": "com.frostycoolslug.goxlr-utility.routing",
+			"PropertyInspectorPath": "actions/goxlr-utility/property-inspector/set-router/inspector.html"
+		}
+	]
+}

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Configure GoXLR Utility</title>
+
+    <link rel="stylesheet" href="../libs/css/sdpi.css"/>
+    <style>
+        body {
+            background-color: transparent;
+        }
+        .sdpi-item {
+            max-width: none;
+        }
+
+        .sdpi-heading {
+            margin: 16px 0;
+        }
+
+    </style>
+</head>
+<body>
+<div class="sdpi-wrapper">
+    <div class="sdpi-heading">Setup the GoXLR Utility Connection</div>
+    <form id="global-settings">
+        <div class="sdpi-item">
+            <div class="sdpi-item-label" name="Address">Address</div>
+            <input class="sdpi-item-value" id="websocket-address" name="address" type="text" value="localhost:14564" placeholder=""/>
+            <button class="sdpi-item-value" value="load" id="refresh-serials">Connect</button>
+        </div>
+        <div class="sdpi-item hidden" id="warning">
+            <details class="message caution"><summary>Unable to connect, please check address.</summary></details>
+        </div>
+        <div class="sdpi-item hidden" id="success">
+            <details class="message info" style="color: #42b883"><summary>Connection Successful!</summary></details>
+        </div>
+<!--        <div class="sdpi-item">-->
+<!--            <div class="sdpi-item-label" name="GoXLR Serial">GoXLR Serial</div>-->
+<!--            <select class="sdpi-item-value select" id="serials" disabled>-->
+<!--                <option>Please Wait</option>-->
+<!--            </select>-->
+<!--        </div>-->
+<!--        <div class="sdpi-item hidden" id="not-found">-->
+<!--            <details class="message caution"><summary>Unable to locate a connected GoXLR</summary></details>-->
+<!--        </div>-->
+        <div class="sdpi-item">
+            <button class="sdpi-item-value" id="save" disabled>Save</button>
+        </div>
+    </form>
+
+    <script src="../lib/sockets.js"></script>
+    <script src="setup.js"></script>
+</div>
+
+</body>
+</html>

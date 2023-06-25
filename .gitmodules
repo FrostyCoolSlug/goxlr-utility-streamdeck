@@ -1,0 +1,6 @@
+[submodule "src/my.domain.plugin-name/libs"]
+	path = src/my.domain.plugin-name/libs
+	url = https://github.com/elgatosf/streamdeck-javascript-sdk
+[submodule "src/com.frostycoolslug.goxlr-utility.sdPlugin/libs"]
+	path = src/com.frostycoolslug.goxlr-utility.sdPlugin/libs
+	url = https://github.com/elgatosf/streamdeck-javascript-sdk
