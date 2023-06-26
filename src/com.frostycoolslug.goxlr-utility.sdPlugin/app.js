@@ -51,6 +51,7 @@ function utilityOffline() {
     // Inform any active commands..
     routingExternalStateChange();
     profileExternalStateChange();
+    basicExternalStateChange();
 }
 
 function utilityOnline() {
@@ -59,6 +60,7 @@ function utilityOnline() {
     // Inform any active commands..
     routingExternalStateChange();
     profileExternalStateChange();
+    basicExternalStateChange();
 }
 
 function retryConnection() {

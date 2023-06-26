@@ -69,6 +69,19 @@
 			"Tooltip": "Toggles a specific route on the GoXLR",
 			"UUID": "com.frostycoolslug.goxlr-utility.routing",
 			"PropertyInspectorPath": "actions/goxlr-utility/property-inspector/set-router/inspector.html"
+		},
+
+		{
+			"Icon": "actions/goxlr-utility/assets/goxlr-white",
+			"Name": "Set Channel Volume",
+			"States": [
+				{
+					"Image": "actions/goxlr-utility/assets/goxlr-white"
+				}
+			],
+			"Tooltip": "Sets the Volume for a Specific Channel",
+			"UUID": "com.frostycoolslug.goxlr-utility.volume",
+			"PropertyInspectorPath": "actions/goxlr-utility/property-inspector/set-volume/inspector.html"
 		}
 	]
 }

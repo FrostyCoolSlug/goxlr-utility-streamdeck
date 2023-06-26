@@ -54,6 +54,11 @@ function runPlugin() {
     websocket.disconnect();
 }
 
+document.querySelector("#mixers").addEventListener('change', (e) => {
+    pluginSettings = Utils.getFormValue(document.querySelector("#volume-form"));
+    $PI.setSettings(pluginSettings);
+});
+
 document.querySelector("#channel").addEventListener('change', (e) => {
     pluginSettings = Utils.getFormValue(document.querySelector("#volume-form"));
     $PI.setSettings(pluginSettings);

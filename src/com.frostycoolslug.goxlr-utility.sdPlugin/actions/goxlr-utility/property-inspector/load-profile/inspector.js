@@ -79,7 +79,7 @@ function runPlugin() {
 }
 
 document.querySelector("#mixers").addEventListener('change', (e) => {
-    pluginSettings = Utils.getFormValue(document.querySelector("#mic-profile-form"));
+    pluginSettings = Utils.getFormValue(document.querySelector("#profile-form"));
     $PI.setSettings(pluginSettings);
 });
 

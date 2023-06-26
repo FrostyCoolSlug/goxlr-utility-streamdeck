@@ -16,3 +16,17 @@ const OutputDevice = {
     "Chat Mic": "ChatMic",
     "Sampler": "Sampler",
 }
+
+const ChannelNameReadable = {
+    "Microphone": "Mic",
+    "Line In": "LineIn",
+    "Console": "Console",
+    "System": "System",
+    "Game": "Game",
+    "Chat": "Chat",
+    "Samples": "Sample",
+    "Music": "Music",
+    "Headphones": "Headphones",
+    "Mic Monitor": "MicMonitor",
+    "Line Out": "LineOut",
+}
