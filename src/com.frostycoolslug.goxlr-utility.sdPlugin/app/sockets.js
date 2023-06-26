@@ -3,25 +3,31 @@
  * plugin.
  */
 class Websocket {
-    #is_connected = false;
     #address = "";
 
     #connection_promise = [];
-
 
     #message_queue = []
     #websocket = undefined;
     #command_index = 0;
 
-    #close_method = () => {};
-    #patch_method = () => {}
+    #last_connect_error = false;
+
+    #close_method = () => {
+    };
+    #patch_method = () => {
+    }
 
     set_address(address) {
         this.#address = address;
     }
 
     is_connected() {
-        return this.#is_connected;
+        if (this.#websocket !== undefined) {
+            return (this.#websocket.readyState === 0 || this.#websocket.readyState === 1);
+        }
+        console.log("No Existing Connection..");
+        return false;
     }
 
     set_patch_method(fn) {
@@ -34,10 +40,17 @@ class Websocket {
             return;
         }
 
+        if (this.is_connected()) {
+            console.error("Already Connected!");
+            return;
+        }
+
+        console.log("Connecting..");
+
         this.#websocket = new WebSocket(this.#address);
 
         let self = this;
-        self.#websocket.addEventListener('message', function(event) {
+        self.#websocket.addEventListener('message', function (event) {
             // A message can be one of two things, either a DaemonStatus, or an error..
             let json = JSON.parse(event.data);
 
@@ -56,19 +69,27 @@ class Websocket {
             }
         });
 
-        self.#websocket.addEventListener('open', function() {
+        self.#websocket.addEventListener('open', function () {
             self.#connection_promise[0]();
             self.#connection_promise[0] = undefined;
-
-            self.#is_connected = true;
         });
 
-        self.#websocket.addEventListener('close', function() {
-            self.#is_connected = false;
-            self.onClose();
+        self.#websocket.addEventListener('close', function () {
+            if (self.is_connected()) {
+                console.log("Close Event Triggered for old Connection, ignoring..");
+                return;
+            }
+
+            console.log("Connection Closed..");
+            if (self.#last_connect_error) {
+                self.#last_connect_error = false;
+                return;
+            }
+            self.#close_method();
         });
 
-        self.#websocket.addEventListener('error', function() {
+        self.#websocket.addEventListener('error', function () {
+            self.#last_connect_error = true;
             if (self.#connection_promise[0] !== undefined) {
                 self.#connection_promise[1]();
                 self.#connection_promise[0] = undefined;
@@ -86,7 +107,11 @@ class Websocket {
     }
 
     disconnect() {
-        this.#websocket.close();
+        console.log("Disconnecting..");
+        if (this.is_connected()) {
+            console.log("Closing Websocket..");
+            this.#websocket.close();
+        }
     }
 
     send_daemon_command(command) {

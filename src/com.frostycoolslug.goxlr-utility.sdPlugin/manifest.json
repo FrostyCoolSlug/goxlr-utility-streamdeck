@@ -30,6 +30,12 @@
 			"States": [
 				{
 					"Image": "actions/goxlr-utility/assets/goxlr-white"
+				},
+				{
+					"Image": "actions/goxlr-utility/assets/goxlr-grey"
+				},
+				{
+					"Image": "actions/goxlr-utility/assets/goxlr-red"
 				}
 			],
 			"Tooltip": "Loads a GoXLR Profile",
@@ -46,6 +52,9 @@
 				},
 				{
 					"Image": "actions/goxlr-utility/assets/goxlr-grey"
+				},
+				{
+					"Image": "actions/goxlr-utility/assets/goxlr-red"
 				}
 			],
 			"Tooltip": "Toggles a specific route on the GoXLR",
