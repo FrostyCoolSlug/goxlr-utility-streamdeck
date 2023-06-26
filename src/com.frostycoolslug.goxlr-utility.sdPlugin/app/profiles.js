@@ -1,4 +1,5 @@
 const changeProfile = new Action('com.frostycoolslug.goxlr-utility.profile');
+const changeMicProfile = new Action('com.frostycoolslug.goxlr-utility.micprofile');
 const profileMonitors = {};
 
 /// Utility Behaviours
@@ -24,13 +25,34 @@ changeProfile.onKeyUp(({action, context, device, event, payload}) => {
     }
 });
 
+changeMicProfile.onKeyUp(({action, context, device, event, payload}) => {
+    // Grab the profile to load from the payload..
+    let profile = payload.settings.profile;
+    let serial = payload.settings.serial;
+
+    if (!websocket.is_connected()) {
+        console.warn("Not Connected to Utility, Unable to Execute");
+    } else {
+        loadMicProfile(serial, profile);
+    }
+});
+
+
 changeProfile.onDidReceiveSettings(({action, event, context, device, payload}) => {
-    console.log("Got Settings..");
+    createProfileMonitor(context, payload.settings, "profile_name");
+});
+
+changeMicProfile.onDidReceiveSettings(({action, event, context, device, payload}) => {
+    createProfileMonitor(context, payload.settings, "mic_profile_name");
+});
+
+
+changeProfile.onWillAppear(({action, event, context, device, payload}) => {
     createProfileMonitor(context, payload.settings, "profile_name");
 });
 
 changeProfile.onWillAppear(({action, event, context, device, payload}) => {
-    createProfileMonitor(context, payload.settings, "profile_name");
+    createProfileMonitor(context, payload.settings, "mic_profile_name");
 });
 
 changeProfile.onWillDisappear(({action, event, context, device, payload}) => {
@@ -123,5 +145,11 @@ class ProfileMonitor {
 function loadProfile(serial, name) {
     websocket.send_command(serial, {
         "LoadProfile": [name, true]
+    }).then(() => console.log("Loaded Profile " + name));
+}
+
+function loadMicProfile(serial, name) {
+    websocket.send_command(serial, {
+        "LoadMicProfile": [name, true]
     }).then(() => console.log("Loaded Profile " + name));
 }

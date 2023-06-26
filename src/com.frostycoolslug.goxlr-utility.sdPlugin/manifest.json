@@ -42,6 +42,24 @@
 			"UUID": "com.frostycoolslug.goxlr-utility.profile",
 			"PropertyInspectorPath": "actions/goxlr-utility/property-inspector/load-profile/inspector.html"
 		},
+		{
+			"Icon": "actions/goxlr-utility/assets/goxlr-white",
+			"Name": "Load Mic Profile",
+			"States": [
+				{
+					"Image": "actions/goxlr-utility/assets/goxlr-white"
+				},
+				{
+					"Image": "actions/goxlr-utility/assets/goxlr-grey"
+				},
+				{
+					"Image": "actions/goxlr-utility/assets/goxlr-red"
+				}
+			],
+			"Tooltip": "Loads a GoXLR Microphone Profile",
+			"UUID": "com.frostycoolslug.goxlr-utility.micprofile",
+			"PropertyInspectorPath": "actions/goxlr-utility/property-inspector/load-mic-profile/inspector.html"
+		},
 
 		{
 			"Icon": "actions/goxlr-utility/assets/goxlr-white",
