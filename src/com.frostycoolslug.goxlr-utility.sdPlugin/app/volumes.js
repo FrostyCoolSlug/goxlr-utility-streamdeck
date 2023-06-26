@@ -20,15 +20,15 @@ changeVolume.onKeyUp(({action, context, device, event, payload}) => {
 });
 
 /// Configuration
-changeRouting.onDidReceiveSettings(({action, event, context, device, payload}) => {
+changeVolume.onDidReceiveSettings(({action, event, context, device, payload}) => {
     createBasicMonitor(context, payload.settings.serial);
 });
 
-changeRouting.onWillAppear(({action, event, context, device, payload}) => {
+changeVolume.onWillAppear(({action, event, context, device, payload}) => {
     createBasicMonitor(context, payload.settings.serial);
 });
 
-changeRouting.onWillDisappear(({action, event, context, device, payload}) => {
+changeVolume.onWillDisappear(({action, event, context, device, payload}) => {
     destroyBasicMontior(context);
 });
 
