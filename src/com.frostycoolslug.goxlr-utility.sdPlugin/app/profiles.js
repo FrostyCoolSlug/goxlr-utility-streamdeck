@@ -20,9 +20,11 @@ changeProfile.onKeyUp(({action, context, device, event, payload}) => {
 
     if (!websocket.is_connected()) {
         console.warn("Not Connected to Utility, Unable to Execute");
+        $SD.setState(context, payload.state);
         $SD.showAlert(context);
     } else if (status === undefined || status.mixers[serial] === undefined) {
         console.warn("Cannot Change Profile, Device not found");
+        $SD.setState(context, payload.state);
         $SD.showAlert(context);
     } else {
         loadProfile(serial, profile);
@@ -41,6 +43,7 @@ changeMicProfile.onKeyUp(({action, context, device, event, payload}) => {
     if (!websocket.is_connected()) {
         console.warn("Not Connected to Utility, Unable to Execute");
         $SD.showAlert(context);
+        $SD.setState(payload.state);
     } else if (status === undefined || status.mixers[serial] === undefined) {
         console.warn("Cannot Change Profile, Device not found");
         $SD.showAlert(context);
