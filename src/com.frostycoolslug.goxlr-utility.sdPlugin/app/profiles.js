@@ -50,7 +50,7 @@ changeMicProfile.onKeyUp(({action, context, device, event, payload}) => {
         $SD.setState(payload.state);
     } else {
         loadMicProfile(serial, profile);
-        if (status.mixers[serial].profile_name === profile) {
+        if (status.mixers[serial].mic_profile_name === profile) {
             // Profile isn't changing, force state back.
             profileMonitors[context].setState();
         }
@@ -71,15 +71,17 @@ changeProfile.onWillAppear(({action, event, context, device, payload}) => {
     createProfileMonitor(context, payload.settings, "profile_name");
 });
 
-changeProfile.onWillAppear(({action, event, context, device, payload}) => {
+changeMicProfile.onWillAppear(({action, event, context, device, payload}) => {
     createProfileMonitor(context, payload.settings, "mic_profile_name");
 });
 
 changeProfile.onWillDisappear(({action, event, context, device, payload}) => {
-    console.log("Button Going Away: " + context);
     profileMonitors[context].destroy();
+    delete profileMonitors[context];
+});
 
-    // Remove it from the struct...
+changeMicProfile.onWillDisappear(({action, event, context, device, payload}) => {
+    profileMonitors[context].destroy();
     delete profileMonitors[context];
 });
 
@@ -142,6 +144,7 @@ class ProfileMonitor {
 
     #onEvent(self, event) {
         let patch = event.patch;
+        console.log(JSON.stringify(patch));
         if (patch.path === self.device || patch.path === self.monitor) {
             self.setState();
         }
@@ -152,7 +155,12 @@ class ProfileMonitor {
             $SD.setImage(this.context, RedIcon);
             return;
         }
+
+
         let active = status.mixers[this.serial][this.key];
+
+        console.log("Active Profile: " + active);
+        console.log("Expected Profile: " + this.profile);
         let state = (active === this.profile) ? 0 : 1;
         $SD.setImage(this.context);
         $SD.setState(this.context, state);
