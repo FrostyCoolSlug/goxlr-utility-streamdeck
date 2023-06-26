@@ -30,6 +30,9 @@
 			"States": [
 				{
 					"Image": "actions/goxlr-utility/assets/goxlr-white"
+				},
+				{
+					"Image": "actions/goxlr-utility/assets/goxlr-grey"
 				}
 			],
 			"Tooltip": "Loads a GoXLR Profile",
@@ -42,6 +45,9 @@
 			"States": [
 				{
 					"Image": "actions/goxlr-utility/assets/goxlr-white"
+				},
+				{
+					"Image": "actions/goxlr-utility/assets/goxlr-grey"
 				}
 			],
 			"Tooltip": "Loads a GoXLR Microphone Profile",
@@ -55,6 +61,9 @@
 			"States": [
 				{
 					"Image": "actions/goxlr-utility/assets/goxlr-white"
+				},
+				{
+					"Image": "actions/goxlr-utility/assets/goxlr-grey"
 				}
 			],
 			"Tooltip": "Toggles a specific route on the GoXLR",

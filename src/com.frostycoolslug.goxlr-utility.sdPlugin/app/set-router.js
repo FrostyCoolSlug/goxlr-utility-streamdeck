@@ -117,8 +117,9 @@ class RouteMonitor {
             return;
         }
         let value = status.mixers[this.serial].router[this.input][this.output];
-        let icon = (value) ? WhiteIcon : GreyIcon;
-        $SD.setImage(this.context, icon);
+        let state = (value) ? 0 : 1;
+        $SD.setImage(this.context);
+        $SD.setState(this.context, state);
     }
 }
 

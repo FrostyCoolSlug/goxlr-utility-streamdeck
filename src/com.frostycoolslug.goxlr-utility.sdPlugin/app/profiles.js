@@ -23,6 +23,10 @@ changeProfile.onKeyUp(({action, context, device, event, payload}) => {
     } else {
         loadProfile(serial, profile);
     }
+    if (status.mixers[serial].profile_name === profile) {
+        // Profile isn't changing, force state back.
+        profileMonitors[context].setState();
+    }
 });
 
 changeMicProfile.onKeyUp(({action, context, device, event, payload}) => {
@@ -34,6 +38,11 @@ changeMicProfile.onKeyUp(({action, context, device, event, payload}) => {
         console.warn("Not Connected to Utility, Unable to Execute");
     } else {
         loadMicProfile(serial, profile);
+    }
+
+    if (status.mixers[serial].mic_profile_name === profile) {
+        // Profile isn't changing, force state back.
+        profileMonitors[context].setState();
     }
 });
 
@@ -133,8 +142,9 @@ class ProfileMonitor {
             return;
         }
         let active = status.mixers[this.serial][this.key];
-        let icon = (active === this.profile) ? WhiteIcon : GreyIcon;
-        $SD.setImage(this.context, icon);
+        let state = (active === this.profile) ? 0 : 1;
+        $SD.setImage(this.context);
+        $SD.setState(this.context, state);
     }
 }
 

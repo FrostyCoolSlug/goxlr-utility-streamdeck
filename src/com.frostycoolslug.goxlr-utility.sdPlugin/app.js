@@ -1,6 +1,4 @@
 // Load the needed icon images..
-const WhiteIcon = getBase64("#img-white");
-const GreyIcon = getBase64("#img-grey");
 const RedIcon = getBase64("#img-red");
 
 $SD.onConnected(({actionInfo, appInfo, connection, messageType, port, uuid}) => {
