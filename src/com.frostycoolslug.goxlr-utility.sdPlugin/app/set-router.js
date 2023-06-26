@@ -22,7 +22,7 @@ changeRouting.onKeyUp(({action, context, device, event, payload}) => {
     if (!websocket.is_connected()) {
         console.warn("Not Connected to Utility, Unable to Execute");
         $SD.showAlert(context);
-    } else if (status.mixers[serial] === undefined) {
+    } else if (status === undefined || status.mixers[serial] === undefined) {
         console.warn("Mixer isn't present, unable to perform action")
         $SD.showAlert(context);
     } else {
