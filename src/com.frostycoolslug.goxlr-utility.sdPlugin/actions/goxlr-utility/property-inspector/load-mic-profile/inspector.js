@@ -78,6 +78,11 @@ function runPlugin() {
     websocket.disconnect();
 }
 
+document.querySelector("#mixers").addEventListener('change', (e) => {
+    pluginSettings = Utils.getFormValue(document.querySelector("#mic-profile-form"));
+    $PI.setSettings(pluginSettings);
+});
+
 document.querySelector("#profiles").addEventListener('change', (e) => {
     pluginSettings = Utils.getFormValue(document.querySelector("#mic-profile-form"));
     $PI.setSettings(pluginSettings);
