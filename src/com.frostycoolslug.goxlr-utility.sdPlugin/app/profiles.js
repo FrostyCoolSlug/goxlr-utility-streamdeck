@@ -131,13 +131,12 @@ class ProfileMonitor {
 
     setState() {
         if (status === undefined || status.mixers[this.serial] === undefined) {
-            $SD.setState(this.context, 2);
+            $SD.setImage(this.context, RedIcon);
             return;
         }
         let active = status.mixers[this.serial][this.key];
-        console.log(active);
-
-        $SD.setState(this.context, (active === this.profile) ? 0 : 1);
+        let icon = (active === this.profile) ? WhiteIcon : GreyIcon;
+        $SD.setImage(this.context, icon);
     }
 }
 

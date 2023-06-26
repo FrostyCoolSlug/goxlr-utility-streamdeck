@@ -113,11 +113,12 @@ class RouteMonitor {
 
     setState() {
         if (status === undefined || status.mixers[this.serial] === undefined) {
-            $SD.setState(this.context, 2);
+            $SD.setImage(this.context, RedIcon);
             return;
         }
         let value = status.mixers[this.serial].router[this.input][this.output];
-        $SD.setState(this.context, (value) ? 0 : 1);
+        let icon = (value) ? WhiteIcon : GreyIcon;
+        $SD.setImage(this.context, icon);
     }
 }
 

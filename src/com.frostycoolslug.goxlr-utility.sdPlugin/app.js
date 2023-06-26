@@ -1,4 +1,7 @@
-
+// Load the needed icon images..
+const WhiteIcon = getBase64("#img-white");
+const GreyIcon = getBase64("#img-grey");
+const RedIcon = getBase64("#img-red");
 
 $SD.onConnected(({actionInfo, appInfo, connection, messageType, port, uuid}) => {
     console.log('Stream Deck connected!');
@@ -87,4 +90,16 @@ function patchStatus(patches) {
         event.patch = patch;
         eventTarget.dispatchEvent(event);
     }
+}
+
+function getBase64(imgId) {
+    let c = document.createElement('canvas');
+    let img = document.querySelector(imgId);
+
+    c.height = img.naturalHeight;
+    c.width = img.naturalWidth;
+
+    let context = c.getContext('2d');
+    context.drawImage(img, 0, 0, c.width, c.height);
+    return c.toDataURL();
 }
