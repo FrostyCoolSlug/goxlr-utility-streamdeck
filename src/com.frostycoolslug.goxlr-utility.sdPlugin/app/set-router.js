@@ -14,6 +14,10 @@ function routingExternalStateChange() {
 
 /// Activators
 changeRouting.onKeyUp(({action, context, device, event, payload}) => {
+    console.log(JSON.stringify(event));
+    console.log(JSON.stringify(payload));
+    console.log(JSON.stringify(action));
+
     // Toggle the Setting..
     let serial = payload.settings.serial;
     let input = InputDevice[payload.settings.input];
@@ -22,9 +26,11 @@ changeRouting.onKeyUp(({action, context, device, event, payload}) => {
     if (!websocket.is_connected()) {
         console.warn("Not Connected to Utility, Unable to Execute");
         $SD.showAlert(context);
+        $SD.setState(payload.state);
     } else if (status === undefined || status.mixers[serial] === undefined) {
         console.warn("Mixer isn't present, unable to perform action")
         $SD.showAlert(context);
+        $SD.setState(payload.state);
     } else {
         let newValue = !status.mixers[serial].router[input][output];
         sendRoute(serial, input, output, newValue);

@@ -40,9 +40,11 @@ changeMicProfile.onKeyUp(({action, context, device, event, payload}) => {
 
     if (!websocket.is_connected()) {
         console.warn("Not Connected to Utility, Unable to Execute");
+        $SD.showAlert(context);
     } else if (status === undefined || status.mixers[serial] === undefined) {
         console.warn("Cannot Change Profile, Device not found");
         $SD.showAlert(context);
+        $SD.setState(payload.state);
     } else {
         loadMicProfile(serial, profile);
         if (status.mixers[serial].profile_name === profile) {
