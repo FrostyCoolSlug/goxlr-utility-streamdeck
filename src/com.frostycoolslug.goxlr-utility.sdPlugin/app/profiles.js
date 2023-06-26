@@ -20,12 +20,16 @@ changeProfile.onKeyUp(({action, context, device, event, payload}) => {
 
     if (!websocket.is_connected()) {
         console.warn("Not Connected to Utility, Unable to Execute");
+        $SD.showAlert(context);
+    } else if (status.mixers[serial] === undefined) {
+        console.warn("Cannot Change Profile, Device not found");
+        $SD.showAlert(context);
     } else {
         loadProfile(serial, profile);
-    }
-    if (status.mixers[serial].profile_name === profile) {
-        // Profile isn't changing, force state back.
-        profileMonitors[context].setState();
+        if (status.mixers[serial].profile_name === profile) {
+            // Profile isn't changing, force state back.
+            profileMonitors[context].setState();
+        }
     }
 });
 
@@ -36,13 +40,15 @@ changeMicProfile.onKeyUp(({action, context, device, event, payload}) => {
 
     if (!websocket.is_connected()) {
         console.warn("Not Connected to Utility, Unable to Execute");
+    } else if (status.mixers[serial] === undefined) {
+        console.warn("Cannot Change Profile, Device not found");
+        $SD.showAlert(context);
     } else {
         loadMicProfile(serial, profile);
-    }
-
-    if (status.mixers[serial].mic_profile_name === profile) {
-        // Profile isn't changing, force state back.
-        profileMonitors[context].setState();
+        if (status.mixers[serial].profile_name === profile) {
+            // Profile isn't changing, force state back.
+            profileMonitors[context].setState();
+        }
     }
 });
 
