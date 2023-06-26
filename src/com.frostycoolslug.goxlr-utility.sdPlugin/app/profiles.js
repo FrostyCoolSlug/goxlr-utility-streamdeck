@@ -122,8 +122,6 @@ class ProfileMonitor {
 
     #onEvent(self, event) {
         let patch = event.patch;
-        console.log(patch.path + " - " + self.monitor);
-
         if (patch.path === self.device || patch.path === self.monitor) {
             self.setState();
         }
