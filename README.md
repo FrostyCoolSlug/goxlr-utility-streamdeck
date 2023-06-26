@@ -6,6 +6,7 @@ A StreamDeck plugin for controlling a GoXLR through the [GoXLR Utility](https://
 * Load Profile
 * Load Mic Profile
 * Toggle Route
+* Set a Channel's Volume
 
 ## Download
 The latest version can be found on the [Releases Page](https://github.com/frostycoolslug/goxlr-utility-streamdeck/releases)
