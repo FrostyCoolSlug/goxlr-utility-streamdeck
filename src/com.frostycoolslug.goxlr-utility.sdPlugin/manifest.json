@@ -3,10 +3,10 @@
 	"Author": "Craig McLure",
 	"CodePath": "app.html",
 	"Description": "Stream Deck Plugin for the GoXLR Utility",
-	"Name": "GoXLR Utility StreamDeck",
+	"Name": "GoXLR Utility for StreamDeck",
 	"Icon": "actions/goxlr-utility/assets/goxlr-white",
 	"URL": "https://github.com/frostycoolslug/goxlr-utility-streamdeck",
-	"Version": "1.0.0",
+	"Version": "0.1.0",
 	"Software": {
 		"MinimumVersion": "5.0"
 	},
