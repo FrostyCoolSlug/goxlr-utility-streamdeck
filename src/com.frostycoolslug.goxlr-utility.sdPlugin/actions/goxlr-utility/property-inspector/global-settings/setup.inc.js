@@ -21,11 +21,9 @@ $PI.onDidReceiveGlobalSettings(({payload}) => {
         address = globalSettings['address'];
     }
 
-    console.log("Attempting Connection..");
     canConnect(address).then((success) => {
         if (success) {
             if (globalSettings['address'] === undefined) {
-                console.log("Storing Default Address");
                 globalSettings['address'] = address;
                 $PI.setGlobalSettings(globalSettings);
             }
@@ -42,19 +40,15 @@ async function canConnect(address) {
         return await websocket.send_daemon_command("GetStatus").then((status) => {
             device = status.Status;
             return true;
-        }).catch((e) => {
-            console.log("Failed to GetStatus: " + JSON.stringify(e));
+        }).catch(() => {
             return false;
         });
-    }).catch((e) => {
-        console.log("Failed to Connect: " + JSON.stringify(e));
+    }).catch(() => {
         return false;
     });
 }
 
 function loadPlugin() {
-    console.log("Running Plugin..");
-
     // Open up the rest of the plugin.
     document.querySelector("#please-wait").classList.add("hidden");
     document.querySelector("#main").classList.remove("hidden");
@@ -62,13 +56,11 @@ function loadPlugin() {
 }
 
 function failed() {
-    console.log("Connection Failed");
     document.querySelector("#please-wait").classList.add("hidden");
     document.querySelector("#message").innerHTML = "Cannot find GoXLR Utility"
     document.querySelector("#configure").classList.remove("hidden");
 }
 
-console.log("Registering Click..");
 document.querySelector("#configure_button").addEventListener('click', (e) => {
     window.open('../../../../setup/setup.html');
 });

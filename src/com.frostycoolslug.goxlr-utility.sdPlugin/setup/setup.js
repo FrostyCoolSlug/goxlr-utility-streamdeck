@@ -22,16 +22,19 @@ document.querySelector("#refresh-serials").addEventListener('click', (e) => {
 
     document.querySelector("#warning").classList.add("hidden");
     let address = "ws://" + document.querySelector("#websocket-address").value + "/api/websocket";
-    console.log(address);
     websocket.set_address(address);
     websocket.connect().then(() => {
         websocket.send_daemon_command("GetStatus").then(() => {
             refresh.innerHTML = "Connected";
             saveButton.disabled = false;
             success.classList.remove("hidden");
-        }).catch((e) => console.log(e))
-    }).catch((e) => {
-        console.log(e)
+        }).catch(() => {
+            document.querySelector("#warning").classList.remove("hidden");
+
+            refresh.innerHTML = "Connect";
+            refresh.disabled = false;
+        });
+    }).catch(() => {
         document.querySelector("#warning").classList.remove("hidden");
 
         refresh.innerHTML = "Connect";

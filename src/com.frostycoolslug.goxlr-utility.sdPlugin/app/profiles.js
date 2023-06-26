@@ -4,8 +4,6 @@ const profileMonitors = {};
 
 /// Utility Behaviours
 function profileExternalStateChange() {
-    console.log("Handling External Profile State Change..");
-
     // We should never fully remove the route monitors, so that when the connection comes back we can reestablish them..
     for (let monitor of Object.keys(profileMonitors)) {
         profileMonitors[monitor].setState();
@@ -92,11 +90,8 @@ function createProfileMonitor(context, settings, key) {
 
     if (profileMonitors[context] !== undefined) {
         if (!profileMonitors[context].equal(context, serial, profile, key)) {
-            console.log("Settings Changed, creating new Monitor..");
             profileMonitors[context].destroy();
             profileMonitors[context] = new ProfileMonitor(context, settings.serial, profile, key);
-        } else {
-            console.log("Same Settings, ignore creation.");
         }
     } else {
         profileMonitors[context] = new ProfileMonitor(context, settings.serial, profile, key);
@@ -117,7 +112,6 @@ class ProfileMonitor {
     #event_handle = () => {};
 
     constructor(context, serial, profile, key) {
-        console.log("Creating Profile Monitor..")
         this.context = context;
         this.serial = serial;
         this.profile = profile;
@@ -138,13 +132,11 @@ class ProfileMonitor {
     }
 
     destroy() {
-        console.log("Removing Listener..")
         eventTarget.removeEventListener("patch", this.#event_handle);
     }
 
     #onEvent(self, event) {
         let patch = event.patch;
-        console.log(JSON.stringify(patch));
         if (patch.path === self.device || patch.path === self.monitor) {
             self.setState();
         }
@@ -158,9 +150,6 @@ class ProfileMonitor {
 
 
         let active = status.mixers[this.serial][this.key];
-
-        console.log("Active Profile: " + active);
-        console.log("Expected Profile: " + this.profile);
         let state = (active === this.profile) ? 0 : 1;
         $SD.setImage(this.context);
         $SD.setState(this.context, state);
@@ -171,11 +160,11 @@ class ProfileMonitor {
 function loadProfile(serial, name) {
     websocket.send_command(serial, {
         "LoadProfile": [name, true]
-    }).then(() => console.log("Loaded Profile " + name));
+    });
 }
 
 function loadMicProfile(serial, name) {
     websocket.send_command(serial, {
         "LoadMicProfile": [name, true]
-    }).then(() => console.log("Loaded Profile " + name));
+    });
 }

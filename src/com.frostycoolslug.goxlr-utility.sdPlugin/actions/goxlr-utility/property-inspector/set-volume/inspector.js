@@ -66,6 +66,5 @@ document.querySelector("#channel").addEventListener('change', (e) => {
 
 document.querySelector("#volume").addEventListener('change', (e) => {
     pluginSettings = Utils.getFormValue(document.querySelector("#volume-form"));
-    console.log(JSON.stringify(pluginSettings));
     $PI.setSettings(pluginSettings);
 });

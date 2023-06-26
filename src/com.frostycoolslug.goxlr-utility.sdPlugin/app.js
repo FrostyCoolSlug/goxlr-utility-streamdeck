@@ -2,21 +2,16 @@
 const RedIcon = getBase64("#img-red");
 
 $SD.onConnected(({actionInfo, appInfo, connection, messageType, port, uuid}) => {
-    console.log('Stream Deck connected!');
     $SD.getGlobalSettings();
 });
 
 $SD.onDidReceiveGlobalSettings((data => {
-    console.log("Got Global Settings..");
     if (websocket.is_connected()) {
-        console.log("Calling Disconnect..");
         websocket.disconnect();
     }
 
     let settings = data.payload.settings;
-    console.log(JSON.stringify(settings));
     if (settings['address'] === undefined) {
-        console.error("Address not defined, cannot perform action..");
         retryConnection();
         return;
     }
@@ -27,24 +22,19 @@ $SD.onDidReceiveGlobalSettings((data => {
         retryConnection();
     })
     websocket.connect().then(() => websocket.send_daemon_command("GetStatus").then((response) => {
-        console.log("Connected to the GoXLR Utility!")
         status = response.Status;
         utilityOnline();
         websocket.set_patch_method(patchStatus);
     }).catch(() => {
-        console.error("Unable to get DaemonStatus");
         websocket.disconnect();
         retryConnection();
     })).catch(() => {
-        console.error("Unable to connect to websocket.");
         retryConnection();
     });
 }));
 
 /// Utility
 function utilityOffline() {
-    console.log("Lost Connection to GoXLR Utility..");
-
     // Clear the Status Object...
     status = undefined;
 
@@ -55,8 +45,6 @@ function utilityOffline() {
 }
 
 function utilityOnline() {
-    console.log("Got Connection to the GoXLR Utility..");
-
     // Inform any active commands..
     routingExternalStateChange();
     profileExternalStateChange();
@@ -64,14 +52,11 @@ function utilityOnline() {
 }
 
 function retryConnection() {
-    console.log("Retrying Connection..");
     // This attempts to reconnect to the utility every 100ms after the last failure.
     if (!websocket.is_connected()) {
         setTimeout(() => {
             $SD.getGlobalSettings()
         }, 1000);
-    } else {
-        console.log("Websocket Connected?");
     }
 }
 

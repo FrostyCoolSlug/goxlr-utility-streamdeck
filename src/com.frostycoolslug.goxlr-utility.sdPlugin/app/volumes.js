@@ -36,5 +36,5 @@ changeVolume.onWillDisappear(({action, event, context, device, payload}) => {
 function sendVolume(serial, channel, value) {
     websocket.send_command(serial, {
         "SetVolume": [channel, value]
-    }).then(() => console.log(`Changed Volume for ${channel} to ${value}`));
+    });
 }

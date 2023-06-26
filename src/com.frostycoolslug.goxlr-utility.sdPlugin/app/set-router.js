@@ -3,9 +3,6 @@ const routeMonitors = {};
 
 /// Utility Behaviours
 function routingExternalStateChange() {
-    console.log("Handling External State Change..");
-    console.log(JSON.stringify(routeMonitors));
-
     // We should never fully remove the route monitors, so that when the connection comes back we can reestablish them..
     for (let monitor of Object.keys(routeMonitors)) {
         routeMonitors[monitor].setState();
@@ -35,7 +32,6 @@ changeRouting.onKeyUp(({action, context, device, event, payload}) => {
 
 /// Configuration
 changeRouting.onDidReceiveSettings(({action, event, context, device, payload}) => {
-    console.log("Got Settings..");
     createMonitor(context, payload.settings);
 });
 
@@ -44,10 +40,7 @@ changeRouting.onWillAppear(({action, event, context, device, payload}) => {
 });
 
 changeRouting.onWillDisappear(({action, event, context, device, payload}) => {
-   console.log("Button Going Away: " + context);
    routeMonitors[context].destroy();
-
-   // Remove it from the struct...
    delete routeMonitors[context];
 });
 
@@ -59,11 +52,8 @@ function createMonitor(context, settings) {
 
     if (routeMonitors[context] !== undefined) {
         if (!routeMonitors[context].equal(context, serial, input, output)) {
-            console.log("Settings Changed, creating new Monitor..");
             routeMonitors[context].destroy();
             routeMonitors[context] = new RouteMonitor(context, settings.serial, input, output);
-        } else {
-            console.log("Same Settings, ignore creation.");
         }
     } else {
         routeMonitors[context] = new RouteMonitor(context, settings.serial, input, output);
@@ -84,7 +74,6 @@ class RouteMonitor {
     #event_handle = () => {};
 
     constructor(context, serial, input, output) {
-        console.log("Creating Monitor..")
         this.context = context;
         this.serial = serial;
         this.input = input;
@@ -104,7 +93,6 @@ class RouteMonitor {
     }
 
     destroy() {
-        console.log("Removing Listener..")
         eventTarget.removeEventListener("patch", this.#event_handle);
     }
 
@@ -131,5 +119,5 @@ class RouteMonitor {
 function sendRoute(serial, input, output, value) {
     websocket.send_command(serial, {
         "SetRouter": [input, output, value]
-    }).then(() => console.log(`Set Routing ${input} -> ${output} to ${value}`));
+    });
 }

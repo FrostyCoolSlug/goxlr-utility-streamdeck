@@ -26,7 +26,6 @@ class Websocket {
         if (this.#websocket !== undefined) {
             return (this.#websocket.readyState === 0 || this.#websocket.readyState === 1);
         }
-        console.log("No Existing Connection..");
         return false;
     }
 
@@ -44,8 +43,6 @@ class Websocket {
             console.error("Already Connected!");
             return;
         }
-
-        console.log("Connecting..");
 
         this.#websocket = new WebSocket(this.#address);
 
@@ -65,7 +62,6 @@ class Websocket {
                 self.#fulfill_promise(message_id, message_data, true);
             } else {
                 self.#fulfill_promise(message_id, message_data, false);
-                console.log("Received Error from Websocket: " + event.data);
             }
         });
 
@@ -76,11 +72,9 @@ class Websocket {
 
         self.#websocket.addEventListener('close', function () {
             if (self.is_connected()) {
-                console.log("Close Event Triggered for old Connection, ignoring..");
                 return;
             }
 
-            console.log("Connection Closed..");
             if (self.#last_connect_error) {
                 self.#last_connect_error = false;
                 return;
@@ -107,9 +101,7 @@ class Websocket {
     }
 
     disconnect() {
-        console.log("Disconnecting..");
         if (this.is_connected()) {
-            console.log("Closing Websocket..");
             this.#websocket.close();
         }
     }

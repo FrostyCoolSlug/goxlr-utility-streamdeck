@@ -72,8 +72,6 @@ function runPlugin() {
     pluginSettings = Utils.getFormValue(document.querySelector("#mic-profile-form"));
     $PI.setSettings(pluginSettings);
 
-    console.log(pluginSettings);
-
     // We're done, disconnect the websocket.
     websocket.disconnect();
 }

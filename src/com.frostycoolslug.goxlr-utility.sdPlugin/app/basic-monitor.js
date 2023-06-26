@@ -10,11 +10,8 @@ function basicExternalStateChange() {
 function createBasicMonitor(context, serial) {
     if (basicMonitors[context] !== undefined) {
         if (!basicMonitors[context].equal(context, serial)) {
-            console.log("Settings Changed, creating new Monitor..");
             basicMonitors[context].destroy();
             basicMonitors[context] = new BasicMonitor(context, serial);
-        } else {
-            console.log("Same Settings, ignore creation.");
         }
     } else {
         basicMonitors[context] = new BasicMonitor(context, serial);
@@ -38,7 +35,6 @@ class BasicMonitor {
     #event_handle = () => {};
 
     constructor(context, serial) {
-        console.log("Creating Monitor..")
         this.context = context;
         this.serial = serial;
         this.device = `/mixers/${serial}`
@@ -55,7 +51,6 @@ class BasicMonitor {
     }
 
     destroy() {
-        console.log("Removing Listener..")
         eventTarget.removeEventListener("patch", this.#event_handle);
     }
 
