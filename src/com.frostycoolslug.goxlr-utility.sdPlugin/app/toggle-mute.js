@@ -39,11 +39,11 @@ muteToggle.onKeyUp(({action, context, device, event, payload}) => {
 
 /// Configuration
 muteToggle.onDidReceiveSettings(({action, event, context, device, payload}) => {
-    createMonitor(context, payload.settings);
+    createMuteMonitor(context, payload.settings);
 });
 
 muteToggle.onWillAppear(({action, event, context, device, payload}) => {
-    createMonitor(context, payload.settings);
+    createMuteMonitor(context, payload.settings);
 });
 
 muteToggle.onWillDisappear(({action, event, context, device, payload}) => {
@@ -52,7 +52,7 @@ muteToggle.onWillDisappear(({action, event, context, device, payload}) => {
 });
 
 /// Monitors
-function createMonitor(context, settings) {
+function createMuteMonitor(context, settings) {
     let serial = settings.serial;
 
     let fader = settings.fader;
