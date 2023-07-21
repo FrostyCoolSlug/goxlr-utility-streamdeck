@@ -32,11 +32,11 @@ changeRouting.onKeyUp(({action, context, device, event, payload}) => {
 
 /// Configuration
 changeRouting.onDidReceiveSettings(({action, event, context, device, payload}) => {
-    createMonitor(context, payload.settings);
+    createRoutingMonitor(context, payload.settings);
 });
 
 changeRouting.onWillAppear(({action, event, context, device, payload}) => {
-    createMonitor(context, payload.settings);
+    createRoutingMonitor(context, payload.settings);
 });
 
 changeRouting.onWillDisappear(({action, event, context, device, payload}) => {
@@ -45,7 +45,7 @@ changeRouting.onWillDisappear(({action, event, context, device, payload}) => {
 });
 
 /// Monitors
-function createMonitor(context, settings) {
+function createRoutingMonitor(context, settings) {
     let serial = settings.serial;
     let input = InputDevice[settings.input];
     let output = OutputDevice[settings.output];
