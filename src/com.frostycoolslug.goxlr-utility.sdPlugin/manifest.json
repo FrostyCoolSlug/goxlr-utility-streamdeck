@@ -100,6 +100,21 @@
 		},
 		{
 			"Icon": "actions/goxlr-utility/assets/goxlr-white",
+			"Name": "Toggle Microphone Mute",
+			"States": [
+				{
+					"Image": "actions/goxlr-utility/assets/goxlr-white"
+				},
+				{
+					"Image": "actions/goxlr-utility/assets/goxlr-grey"
+				}
+			],
+			"Tooltip": "Toggles the Mute Setting for the Microphone",
+			"UUID": "com.frostycoolslug.goxlr-utility.toggle-mic-mute",
+			"PropertyInspectorPath": "actions/goxlr-utility/property-inspector/toggle-mic-mute/inspector.html"
+		},
+		{
+			"Icon": "actions/goxlr-utility/assets/goxlr-white",
 			"Name": "Toggle Fx",
 			"States": [
 				{
