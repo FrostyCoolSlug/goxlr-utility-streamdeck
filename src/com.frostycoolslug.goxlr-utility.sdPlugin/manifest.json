@@ -82,6 +82,21 @@
 			"Tooltip": "Sets the Volume for a Specific Channel",
 			"UUID": "com.frostycoolslug.goxlr-utility.volume",
 			"PropertyInspectorPath": "actions/goxlr-utility/property-inspector/set-volume/inspector.html"
+		},
+		{
+			"Icon": "actions/goxlr-utility/assets/goxlr-white",
+			"Name": "Toggle Fader Mute",
+			"States": [
+				{
+					"Image": "actions/goxlr-utility/assets/goxlr-white"
+				},
+				{
+					"Image": "actions/goxlr-utility/assets/goxlr-grey"
+				}
+			],
+			"Tooltip": "Toggles the Mute Setting on a Fader",
+			"UUID": "com.frostycoolslug.goxlr-utility.toggle-mute",
+			"PropertyInspectorPath": "actions/goxlr-utility/property-inspector/toggle-mute/inspector.html"
 		}
 	]
 }

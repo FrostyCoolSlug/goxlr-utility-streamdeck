@@ -40,6 +40,7 @@ function utilityOffline() {
 
     // Inform any active commands..
     routingExternalStateChange();
+    muteToggleExternalStateChange();
     profileExternalStateChange();
     basicExternalStateChange();
 }
@@ -47,6 +48,7 @@ function utilityOffline() {
 function utilityOnline() {
     // Inform any active commands..
     routingExternalStateChange();
+    muteToggleExternalStateChange();
     profileExternalStateChange();
     basicExternalStateChange();
 }
