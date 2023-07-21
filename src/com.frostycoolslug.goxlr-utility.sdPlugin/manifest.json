@@ -97,6 +97,21 @@
 			"Tooltip": "Toggles the Mute Setting on a Fader",
 			"UUID": "com.frostycoolslug.goxlr-utility.toggle-mute",
 			"PropertyInspectorPath": "actions/goxlr-utility/property-inspector/toggle-mute/inspector.html"
+		},
+		{
+			"Icon": "actions/goxlr-utility/assets/goxlr-white",
+			"Name": "Toggle Fx",
+			"States": [
+				{
+					"Image": "actions/goxlr-utility/assets/goxlr-white"
+				},
+				{
+					"Image": "actions/goxlr-utility/assets/goxlr-grey"
+				}
+			],
+			"Tooltip": "Toggles the Fx State on the GoXLR",
+			"UUID": "com.frostycoolslug.goxlr-utility.toggle-fx",
+			"PropertyInspectorPath": "actions/goxlr-utility/property-inspector/toggle-fx/inspector.html"
 		}
 	]
 }
