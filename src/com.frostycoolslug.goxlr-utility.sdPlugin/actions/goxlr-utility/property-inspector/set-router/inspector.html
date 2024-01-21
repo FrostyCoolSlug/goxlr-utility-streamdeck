@@ -41,6 +41,14 @@
             </div>
             <div class="hidden" id="router">
                 <div class="sdpi-item">
+                    <div class="sdpi-item-label">Mode</div>
+                    <select class="sdpi-item-value" id="mode" name="mode">
+                        <option value="toggle">Toggle</option>
+                        <option value="set">Set</option>
+                    </select>
+                </div>
+
+                <div class="sdpi-item">
                     <div class="sdpi-item-label">Input</div>
                     <select class="sdpi-item-value" id="input" name="input">
                         <option>Microphone</option>
@@ -64,6 +72,15 @@
                     </select>
                 </div>
             </div>
+
+            <div class="sdpi-item hidden" id="set-value">
+                <div class="sdpi-item-label">Value</div>
+                <select class="sdpi-item-value" id="value" name="value">
+                    <option value="enabled">Enabled</option>
+                    <option value="disabled">Disabled</option>
+                </select>
+            </div>
+
             <div class="hidden sdpi-item" id="refresh" style="max-width: none">
                 <button class="sdpi-item-value">Refresh</button>
             </div>

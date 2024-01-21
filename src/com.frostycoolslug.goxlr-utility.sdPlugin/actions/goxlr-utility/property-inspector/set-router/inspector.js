@@ -46,6 +46,10 @@ function runPlugin() {
     // Set any 'Known' form values, default others.
     Utils.setFormValue(pluginSettings, document.querySelector("#router-form"))
 
+    if (document.querySelector("#mode").value === "set") {
+        document.querySelector("#set-value").classList.remove("hidden");
+    }
+
     // Get all the default filled fields and store them to settings.
     pluginSettings = Utils.getFormValue(document.querySelector("#router-form"));
     $PI.setSettings(pluginSettings);
@@ -54,12 +58,28 @@ function runPlugin() {
     websocket.disconnect();
 }
 
+document.querySelector("#mode").addEventListener('change', (e) => {
+    if (e.target.value === "set") {
+        document.querySelector("#set-value").classList.remove("hidden");
+    } else {
+        document.querySelector("#set-value").classList.add("hidden");
+    }
+
+    pluginSettings = Utils.getFormValue(document.querySelector("#router-form"));
+    $PI.setSettings(pluginSettings);
+});
+
 document.querySelector("#input").addEventListener('change', (e) => {
     pluginSettings = Utils.getFormValue(document.querySelector("#router-form"));
     $PI.setSettings(pluginSettings);
 });
 
 document.querySelector("#output").addEventListener('change', (e) => {
+    pluginSettings = Utils.getFormValue(document.querySelector("#router-form"));
+    $PI.setSettings(pluginSettings);
+});
+
+document.querySelector("#value").addEventListener('change', (e) => {
     pluginSettings = Utils.getFormValue(document.querySelector("#router-form"));
     $PI.setSettings(pluginSettings);
 });

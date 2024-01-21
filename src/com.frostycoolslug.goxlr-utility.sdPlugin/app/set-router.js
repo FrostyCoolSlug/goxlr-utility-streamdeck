@@ -15,6 +15,8 @@ changeRouting.onKeyUp(({action, context, device, event, payload}) => {
     let serial = payload.settings.serial;
     let input = InputDevice[payload.settings.input];
     let output = OutputDevice[payload.settings.output];
+    let mode = payload.settings.mode;
+
 
     if (!websocket.is_connected()) {
         console.warn("Not Connected to Utility, Unable to Execute");
@@ -25,8 +27,14 @@ changeRouting.onKeyUp(({action, context, device, event, payload}) => {
         $SD.setState(context, payload.state);
         $SD.showAlert(context);
     } else {
-        let newValue = !status.mixers[serial].router[input][output];
-        sendRoute(serial, input, output, newValue);
+        let currentValue = status.mixers[serial].router[input][output];
+        let newValue = (mode === "toggle") ? !currentValue : (payload.settings.value === "enabled");
+
+        if (newValue !== currentValue) {
+            sendRoute(serial, input, output, newValue);
+        } else {
+            $SD.setState(context, newValue ? 0 : 1);
+        }
     }
 });
 
