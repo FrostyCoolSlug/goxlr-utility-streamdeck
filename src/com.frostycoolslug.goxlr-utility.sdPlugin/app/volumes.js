@@ -6,6 +6,7 @@ changeVolume.onKeyUp(({action, context, device, event, payload}) => {
     // Toggle the Setting..
     let serial = payload.settings.serial;
     let mix = payload.settings.mix;
+    let mode = payload.settings.mode;
 
     let volume = Math.round((payload.settings.volume / 100) * 255);
 
@@ -22,15 +23,39 @@ changeVolume.onKeyUp(({action, context, device, event, payload}) => {
         // If submixes aren't supported, or enabled, always default back to channel A..
         if (!submix_supported || !submix_enabled || mix === "A") {
             let channel = ChannelNameReadable[payload.settings.channel];
-            console.log(channel);
+            if (mode === "set") {
+                sendVolume(serial, channel, volume);
+            } else {
+                // Get the current volume for this channel..
+                let current = status.mixers[serial].levels.volumes[channel];
+                let newVolume = (mode === "up") ? (current + volume) : (current - volume);
+                if (newVolume > 255) {
+                    newVolume = 255;
+                }
+                if (newVolume < 0) {
+                    newVolume = 0;
+                }
+                sendVolume(serial, channel, newVolume);
+            }
 
-            sendVolume(serial, channel, volume);
+
         } else {
             // Submixes are enabled, and we're configured as channel B
             let channel = ChannelNameReadable[payload.settings["sub-channel"]];
-            console.log(channel);
 
-            sendSubVolume(serial, channel, volume)
+            if (mode === "set") {
+                sendSubVolume(serial, channel, volume)
+            } else {
+                let current = status.mixers[serial].levels.submix.inputs[channel].volume;
+                let newVolume = (mode === "up") ? (current + volume) : (current - volume);
+                if (newVolume > 255) {
+                    newVolume = 255;
+                }
+                if (newVolume < 0) {
+                    newVolume = 0;
+                }
+                sendSubVolume(serial, channel, newVolume);
+            }
         }
     }
 });

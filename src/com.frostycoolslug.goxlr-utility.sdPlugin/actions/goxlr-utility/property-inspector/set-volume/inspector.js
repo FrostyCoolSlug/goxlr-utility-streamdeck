@@ -64,6 +64,10 @@ function runPlugin() {
         document.querySelector("#mix-a").classList.remove("hidden");
     }
 
+    let volume = document.querySelector("#volume").value;
+    document.querySelector("#volume-value").innerHTML = `${volume}%`;
+
+
     // Get all the default filled fields and store them to settings.
     pluginSettings = Utils.getFormValue(document.querySelector("#volume-form"));
     $PI.setSettings(pluginSettings);
@@ -73,6 +77,11 @@ function runPlugin() {
 }
 
 document.querySelector("#mixers").addEventListener('change', (e) => {
+    pluginSettings = Utils.getFormValue(document.querySelector("#volume-form"));
+    $PI.setSettings(pluginSettings);
+});
+
+document.querySelector("#mode").addEventListener('change', (e) => {
     pluginSettings = Utils.getFormValue(document.querySelector("#volume-form"));
     $PI.setSettings(pluginSettings);
 });
@@ -100,6 +109,8 @@ document.querySelector("#mix").addEventListener('change', (e) => {
 });
 
 document.querySelector("#volume").addEventListener('change', (e) => {
+    document.querySelector("#volume-value").innerHTML = `${e.target.value}%`;
+
     pluginSettings = Utils.getFormValue(document.querySelector("#volume-form"));
     $PI.setSettings(pluginSettings);
 });
