@@ -58,3 +58,9 @@ document.querySelector("#mixers").addEventListener('change', (e) => {
     pluginSettings = Utils.getFormValue(document.querySelector("#fx-toggle-form"));
     $PI.setSettings(pluginSettings);
 });
+
+document.querySelector("#mode").addEventListener('change', (e) => {
+    pluginSettings = Utils.getFormValue(document.querySelector("#fx-toggle-form"));
+    $PI.setSettings(pluginSettings);
+});
+

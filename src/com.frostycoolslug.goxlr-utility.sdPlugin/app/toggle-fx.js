@@ -13,6 +13,7 @@ function fxToggleExternalStateChange() {
 fxToggle.onKeyUp(({action, context, device, event, payload}) => {
     // Toggle the Setting..
     let serial = payload.settings.serial;
+    let mode = payload.settings.mode;
 
     if (!websocket.is_connected()) {
         console.warn("Not Connected to Utility, Unable to Execute");
@@ -23,8 +24,16 @@ fxToggle.onKeyUp(({action, context, device, event, payload}) => {
         $SD.setState(context, payload.state);
         $SD.showAlert(context);
     } else {
-        let newValue = !status.mixers[serial].effects.is_enabled;
-        sendFxState(serial, newValue);
+        let current = status.mixers[serial].effects.is_enabled;
+        let newValue = (mode === "toggle" || mode === undefined) ? !current : (mode === "enable");
+
+        console.log(`State: ${current} -> ${newValue}`);
+        if (newValue !== current) {
+            sendFxState(serial, newValue);
+        }
+
+        // Forcably update the icon, the SD software will always toggle, we need to tweak it so it restores.
+        $SD.setState(context, newValue ? 0 : 1);
     }
 });
 
