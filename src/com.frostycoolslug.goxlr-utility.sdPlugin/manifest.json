@@ -57,7 +57,7 @@
 
 		{
 			"Icon": "actions/goxlr-utility/assets/goxlr-white",
-			"Name": "Toggle Route",
+			"Name": "Set Route",
 			"States": [
 				{
 					"Image": "actions/goxlr-utility/assets/goxlr-white"
@@ -66,7 +66,7 @@
 					"Image": "actions/goxlr-utility/assets/goxlr-grey"
 				}
 			],
-			"Tooltip": "Toggles a specific route on the GoXLR",
+			"Tooltip": "Configures a specific route on the GoXLR",
 			"UUID": "com.frostycoolslug.goxlr-utility.routing",
 			"PropertyInspectorPath": "actions/goxlr-utility/property-inspector/set-router/inspector.html"
 		},
@@ -79,13 +79,13 @@
 					"Image": "actions/goxlr-utility/assets/goxlr-white"
 				}
 			],
-			"Tooltip": "Sets the Volume for a Specific Channel",
+			"Tooltip": "Configures the Volume for a Specific Channel",
 			"UUID": "com.frostycoolslug.goxlr-utility.volume",
 			"PropertyInspectorPath": "actions/goxlr-utility/property-inspector/set-volume/inspector.html"
 		},
 		{
 			"Icon": "actions/goxlr-utility/assets/goxlr-white",
-			"Name": "Toggle Fader Mute",
+			"Name": "Set Fader Mute",
 			"States": [
 				{
 					"Image": "actions/goxlr-utility/assets/goxlr-white"
@@ -94,13 +94,13 @@
 					"Image": "actions/goxlr-utility/assets/goxlr-grey"
 				}
 			],
-			"Tooltip": "Toggles the Mute Setting on a Fader",
+			"Tooltip": "Configures the Mute Setting on a Fader",
 			"UUID": "com.frostycoolslug.goxlr-utility.toggle-mute",
 			"PropertyInspectorPath": "actions/goxlr-utility/property-inspector/toggle-mute/inspector.html"
 		},
 		{
 			"Icon": "actions/goxlr-utility/assets/goxlr-white",
-			"Name": "Toggle Microphone Mute",
+			"Name": "Set Microphone Mute",
 			"States": [
 				{
 					"Image": "actions/goxlr-utility/assets/goxlr-white"
@@ -109,13 +109,13 @@
 					"Image": "actions/goxlr-utility/assets/goxlr-grey"
 				}
 			],
-			"Tooltip": "Toggles the Mute Setting for the Microphone",
+			"Tooltip": "Configures the Mute Setting for the Microphone",
 			"UUID": "com.frostycoolslug.goxlr-utility.toggle-mic-mute",
 			"PropertyInspectorPath": "actions/goxlr-utility/property-inspector/toggle-mic-mute/inspector.html"
 		},
 		{
 			"Icon": "actions/goxlr-utility/assets/goxlr-white",
-			"Name": "Toggle Fx",
+			"Name": "Set Fx State",
 			"States": [
 				{
 					"Image": "actions/goxlr-utility/assets/goxlr-white"
@@ -124,7 +124,7 @@
 					"Image": "actions/goxlr-utility/assets/goxlr-grey"
 				}
 			],
-			"Tooltip": "Toggles the Fx State on the GoXLR",
+			"Tooltip": "Configures the Fx State on the GoXLR",
 			"UUID": "com.frostycoolslug.goxlr-utility.toggle-fx",
 			"PropertyInspectorPath": "actions/goxlr-utility/property-inspector/toggle-fx/inspector.html"
 		}
