@@ -46,6 +46,24 @@ function runPlugin() {
     // Set any 'Known' form values, default others.
     Utils.setFormValue(pluginSettings, document.querySelector("#volume-form"))
 
+    let current_mixer = document.querySelector("#mixers").value;
+
+    let submix_supported = device.mixers[current_mixer].levels.submix_supported === true;
+    let submix_enabled = (device.mixers[current_mixer].levels.submix !== null);
+
+    if (submix_supported && submix_enabled) {
+        document.querySelector("#submix").classList.remove("hidden");
+
+        let mix = document.querySelector("#mix").value;
+        if (mix === "A") {
+            document.querySelector("#mix-a").classList.remove("hidden");
+        } else {
+            document.querySelector("#mix-b").classList.remove("hidden");
+        }
+    } else {
+        document.querySelector("#mix-a").classList.remove("hidden");
+    }
+
     // Get all the default filled fields and store them to settings.
     pluginSettings = Utils.getFormValue(document.querySelector("#volume-form"));
     $PI.setSettings(pluginSettings);
@@ -60,6 +78,23 @@ document.querySelector("#mixers").addEventListener('change', (e) => {
 });
 
 document.querySelector("#channel").addEventListener('change', (e) => {
+    pluginSettings = Utils.getFormValue(document.querySelector("#volume-form"));
+    $PI.setSettings(pluginSettings);
+});
+document.querySelector("#sub-channel").addEventListener('change', (e) => {
+    pluginSettings = Utils.getFormValue(document.querySelector("#volume-form"));
+    $PI.setSettings(pluginSettings);
+});
+
+document.querySelector("#mix").addEventListener('change', (e) => {
+    if (e.target.value === "A") {
+        document.querySelector("#mix-a").classList.remove("hidden");
+        document.querySelector("#mix-b").classList.add("hidden");
+    } else {
+        document.querySelector("#mix-a").classList.add("hidden");
+        document.querySelector("#mix-b").classList.remove("hidden");
+    }
+
     pluginSettings = Utils.getFormValue(document.querySelector("#volume-form"));
     $PI.setSettings(pluginSettings);
 });

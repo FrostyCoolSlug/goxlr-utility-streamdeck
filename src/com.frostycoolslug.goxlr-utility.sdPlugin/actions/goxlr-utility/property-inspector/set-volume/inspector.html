@@ -40,7 +40,15 @@
                 </select>
             </div>
             <div class="hidden" id="settings">
-                <div class="sdpi-item">
+                <div class="sdpi-item hidden" id="submix">
+                    <div class="sdpi-item-label">Mix</div>
+                    <select class="sdpi-item-value" id="mix" name="mix">
+                        <option>A</option>
+                        <option>B</option>
+                    </select>
+                </div>
+
+                <div class="sdpi-item hidden" id="mix-a">
                     <div class="sdpi-item-label">Channel</div>
                     <select class="sdpi-item-value" id="channel" name="channel">
                         <option>Microphone</option>
@@ -54,6 +62,19 @@
                         <option>Line Out</option>
                         <option>Headphones</option>
                         <option>Mic Monitor</option>
+                    </select>
+                </div>
+                <div class="sdpi-item hidden" id="mix-b">
+                    <div class="sdpi-item-label">Channel</div>
+                    <select class="sdpi-item-value" id="sub-channel" name="sub-channel">
+                        <option>Microphone</option>
+                        <option>Chat</option>
+                        <option>Music</option>
+                        <option>Game</option>
+                        <option>Console</option>
+                        <option>Line In</option>
+                        <option>System</option>
+                        <option>Samples</option>
                     </select>
                 </div>
                 <div class="sdpi-item">
