@@ -50,8 +50,23 @@
                     </select>
                 </div>
                 <div class="sdpi-item">
+                    <div class="sdpi-item-label">Mode</div>
+                    <select class="sdpi-item-value" id="mode" name="mode">
+                        <option value="toggle">Toggle</option>
+                        <option value="set">Set</option>
+                    </select>
+                </div>
+                <div id="behaviour_wrap" class="sdpi-item hidden">
                     <div class="sdpi-item-label">Behaviour</div>
                     <select class="sdpi-item-value" id="behaviour" name="behaviour">
+                        <option value="MutedToX">Mute To X</option>
+                        <option value="MutedToAll">Mute To All</option>
+                    </select>
+                </div>
+                <div id="set_behaviour_wrap" class="sdpi-item hidden">
+                    <div class="sdpi-item-label">Behaviour</div>
+                    <select class="sdpi-item-value" id="set_behaviour" name="set_behaviour">
+                        <option value="Unmuted">Unmuted</option>
                         <option value="MutedToX">Mute To X</option>
                         <option value="MutedToAll">Mute To All</option>
                     </select>

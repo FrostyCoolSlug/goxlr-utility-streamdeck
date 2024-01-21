@@ -14,6 +14,7 @@ muteToggle.onKeyUp(({action, context, device, event, payload}) => {
     // Toggle the Setting..
     let serial = payload.settings.serial;
     let fader = payload.settings.fader;
+    let mode = payload.settings.mode;
     let behaviour = payload.settings.behaviour;
 
     if (!websocket.is_connected()) {
@@ -25,15 +26,29 @@ muteToggle.onKeyUp(({action, context, device, event, payload}) => {
         $SD.setState(context, payload.state);
         $SD.showAlert(context);
     } else {
-        let current = status.mixers[serial].fader_status[fader].mute_state;
-        let newValue = "Unmuted";
+        console.log(mode);
+        if (mode === "set") {
+            let current = status.mixers[serial].fader_status[fader].mute_state;
+            let newValue = payload.settings.set_behaviour;
+            console.log(`Current: ${current} -> ${newValue}`);
 
-        // If the channel is already unmuted, execute behaviour, otherwise unmute.
-        if (current === "Unmuted") {
-            newValue = behaviour;
+            if (newValue !== current) {
+                sendMute(serial, fader, newValue);
+            } else {
+                // Forcibly update the icon if we're not changing the setting.
+                $SD.setState(context, (current === "Unmuted") ? 1 : 0)
+            }
+        } else {
+            let current = status.mixers[serial].fader_status[fader].mute_state;
+            let newValue = "Unmuted";
+
+            // If the channel is already unmuted, execute behaviour, otherwise unmute.
+            if (current === "Unmuted") {
+                newValue = behaviour;
+            }
+
+            sendMute(serial, fader, newValue);
         }
-
-        sendMute(serial, fader, newValue);
     }
 });
 

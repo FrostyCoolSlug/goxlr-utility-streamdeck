@@ -46,6 +46,15 @@ function runPlugin() {
     // Set any 'Known' form values, default others.
     Utils.setFormValue(pluginSettings, document.querySelector("#mute-toggle-form"))
 
+    // Show / Hide the relevant behaviour settings..
+    if (document.querySelector("#mode").value === "set") {
+        document.querySelector("#behaviour_wrap").classList.add("hidden");
+        document.querySelector("#set_behaviour_wrap").classList.remove("hidden");
+    } else {
+        document.querySelector("#behaviour_wrap").classList.remove("hidden");
+        document.querySelector("#set_behaviour_wrap").classList.add("hidden");
+    }
+
     // Get all the default filled fields and store them to settings.
     pluginSettings = Utils.getFormValue(document.querySelector("#mute-toggle-form"));
     $PI.setSettings(pluginSettings);
@@ -64,7 +73,25 @@ document.querySelector("#fader").addEventListener('change', (e) => {
     $PI.setSettings(pluginSettings);
 });
 
+document.querySelector("#mode").addEventListener('change', (e) => {
+    if (e.target.value === "set") {
+        document.querySelector("#behaviour_wrap").classList.add("hidden");
+        document.querySelector("#set_behaviour_wrap").classList.remove("hidden");
+    } else {
+        document.querySelector("#behaviour_wrap").classList.remove("hidden");
+        document.querySelector("#set_behaviour_wrap").classList.add("hidden");
+    }
+
+    pluginSettings = Utils.getFormValue(document.querySelector("#mute-toggle-form"));
+    $PI.setSettings(pluginSettings);
+});
+
 document.querySelector("#behaviour").addEventListener('change', (e) => {
+    pluginSettings = Utils.getFormValue(document.querySelector("#mute-toggle-form"));
+    $PI.setSettings(pluginSettings);
+});
+
+document.querySelector("#set_behaviour").addEventListener('change', (e) => {
     pluginSettings = Utils.getFormValue(document.querySelector("#mute-toggle-form"));
     $PI.setSettings(pluginSettings);
 });
