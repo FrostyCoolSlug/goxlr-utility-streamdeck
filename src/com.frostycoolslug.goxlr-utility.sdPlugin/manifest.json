@@ -85,6 +85,18 @@
 		},
 		{
 			"Icon": "actions/goxlr-utility/assets/goxlr-white",
+			"Name": "Display Channel Volume",
+			"States": [
+				{
+					"Image": "actions/goxlr-utility/assets/goxlr-white"
+				}
+			],
+			"Tooltip": "Displays the current volume level of a channel",
+			"UUID": "com.frostycoolslug.goxlr-utility.display-volume",
+			"PropertyInspectorPath": "actions/goxlr-utility/property-inspector/display-volume/inspector.html"
+		},
+		{
+			"Icon": "actions/goxlr-utility/assets/goxlr-white",
 			"Name": "Set Fader Mute",
 			"States": [
 				{
@@ -115,7 +127,7 @@
 		},
 		{
 			"Icon": "actions/goxlr-utility/assets/goxlr-white",
-			"Name": "Set Fx State",
+			"Name": "Set Fx States",
 			"States": [
 				{
 					"Image": "actions/goxlr-utility/assets/goxlr-white"
@@ -127,18 +139,6 @@
 			"Tooltip": "Configures the Fx State on the GoXLR",
 			"UUID": "com.frostycoolslug.goxlr-utility.toggle-fx",
 			"PropertyInspectorPath": "actions/goxlr-utility/property-inspector/toggle-fx/inspector.html"
-		},
-		{
-			"Icon": "actions/goxlr-utility/assets/goxlr-white",
-			"Name": "Display Volume",
-			"States": [
-				{
-					"Image": "actions/goxlr-utility/assets/goxlr-white"
-				}
-			],
-			"Tooltip": "Displays the current volume level of a channel",
-			"UUID": "com.frostycoolslug.goxlr-utility.display-volume",
-			"PropertyInspectorPath": "actions/goxlr-utility/property-inspector/display-volume/inspector.html"
 		}
 	]
 }

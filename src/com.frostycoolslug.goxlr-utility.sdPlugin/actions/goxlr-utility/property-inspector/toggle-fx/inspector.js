@@ -64,3 +64,7 @@ document.querySelector("#mode").addEventListener('change', (e) => {
     $PI.setSettings(pluginSettings);
 });
 
+document.querySelector("#button").addEventListener('change', (e) => {
+    pluginSettings = Utils.getFormValue(document.querySelector("#fx-toggle-form"));
+    $PI.setSettings(pluginSettings);
+});

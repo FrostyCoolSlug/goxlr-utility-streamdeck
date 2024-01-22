@@ -13,6 +13,7 @@ function fxToggleExternalStateChange() {
 fxToggle.onKeyUp(({action, context, device, event, payload}) => {
     // Toggle the Setting..
     let serial = payload.settings.serial;
+    let button = payload.settings.button;
     let mode = payload.settings.mode;
 
     if (!websocket.is_connected()) {
@@ -24,12 +25,22 @@ fxToggle.onKeyUp(({action, context, device, event, payload}) => {
         $SD.setState(context, payload.state);
         $SD.showAlert(context);
     } else {
+        if (status.mixers[serial].hardware.device_type !== "Full") {
+            // NOT A FULL SIZED GOXLR, DO NOTHING.
+            $SD.setState(context, payload.state);
+            $SD.showAlert(context);
+            return;
+        }
+
         let current = status.mixers[serial].effects.is_enabled;
+        if (button !== "fx") {
+            current = status.mixers[serial].effects.current[button].is_enabled;
+        }
         let newValue = (mode === "toggle" || mode === undefined) ? !current : (mode === "enable");
 
         console.log(`State: ${current} -> ${newValue}`);
         if (newValue !== current) {
-            sendFxState(serial, newValue);
+            sendEffectState(serial, button, newValue);
         }
 
         // Forcably update the icon, the SD software will always toggle, we need to tweak it so it restores.
@@ -58,10 +69,10 @@ function createFxMonitor(context, settings) {
     if (fxMonitors[context] !== undefined) {
         if (!fxMonitors[context].equal(context, serial)) {
             fxMonitors[context].destroy();
-            fxMonitors[context] = new FxMonitor(context, settings.serial);
+            fxMonitors[context] = new FxMonitor(context, settings.serial, settings.button);
         }
     } else {
-        fxMonitors[context] = new FxMonitor(context, settings.serial);
+        fxMonitors[context] = new FxMonitor(context, settings.serial, settings.button);
     }
     fxMonitors[context].setState();
 }
@@ -71,17 +82,23 @@ class FxMonitor {
     // access to them.
     context = undefined;
     serial = undefined;
+    button = undefined;
     monitor = undefined;
     device = undefined;
 
     #event_handle = () => {};
 
-    constructor(context, serial) {
+    constructor(context, serial, button) {
         this.context = context;
         this.serial = serial;
+        this.button = button;
 
         // status.mixers[serial].effects.is_enabled
-        this.monitor = `/mixers/${serial}/effects/is_enabled`;
+        if (button === "fx") {
+            this.monitor = `/mixers/${serial}/effects/is_enabled`;
+        }  else {
+            this.monitor = `/mixers/${serial}/effects/current/${button}/is_enabled`
+        }
         this.device = `/mixers/${serial}`
 
         let self = this;
@@ -91,8 +108,8 @@ class FxMonitor {
         eventTarget.addEventListener("patch", this.#event_handle);
     }
 
-    equal(context, serial) {
-        return (context === this.context && serial === this.serial)
+    equal(context, serial, button) {
+        return (context === this.context && serial === this.serial && this.button === button)
     }
 
     destroy() {
@@ -111,16 +128,34 @@ class FxMonitor {
             $SD.setImage(this.context, RedIcon);
             return;
         }
+
+        // Don't do anything unless we're a full sized device.
+        if (status.mixers[this.serial].hardware.device_type !== "Full") {
+            $SD.setImage(this.context, RedIcon);
+            return;
+        }
+
         let value = status.mixers[this.serial].effects.is_enabled;
+        if (this.button !== "fx") {
+            value = status.mixers[this.serial].effects.current[this.button].is_enabled;
+        }
+
         let state = (value) ? 0 : 1;
         $SD.setImage(this.context);
         $SD.setState(this.context, state);
     }
 }
 
-/// IPC Commands
-function sendFxState(serial, enabled) {
+function sendEffectState(serial, button, enabled) {
+    let command = "SetFXEnabled";
+    if (button === "megaphone") {
+        command = "SetMegaphoneEnabled";
+    } else if (button === "robot") {
+        command = "SetRobotEnabled";
+    } else if (button === "hard_tune") {
+        command = "SetHardTuneEnabled";
+    }
     websocket.send_command(serial, {
-        "SetFXEnabled": enabled
+        [command]: enabled
     });
 }
