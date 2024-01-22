@@ -43,6 +43,7 @@ function utilityOffline() {
     muteToggleExternalStateChange();
     fxToggleExternalStateChange();
     profileExternalStateChange();
+    volumeMonitorExternalStateChange();
     basicExternalStateChange();
 }
 
@@ -52,6 +53,7 @@ function utilityOnline() {
     muteToggleExternalStateChange();
     fxToggleExternalStateChange();
     profileExternalStateChange();
+    volumeMonitorExternalStateChange();
     basicExternalStateChange();
 }
 
