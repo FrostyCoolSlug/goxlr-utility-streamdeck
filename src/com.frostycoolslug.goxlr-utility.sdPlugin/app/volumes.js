@@ -8,6 +8,9 @@ changeVolume.onKeyUp(({action, context, device, event, payload}) => {
     let mix = payload.settings.mix;
     let mode = payload.settings.mode;
 
+    let channel_a = ChannelNameReadable[payload.settings.channel];
+    let channel_b = ChannelNameReadable[payload.settings["sub-channel"]];
+
     let volume = Math.round((payload.settings.volume / 100) * 255);
 
     if (!websocket.is_connected()) {
@@ -20,9 +23,16 @@ changeVolume.onKeyUp(({action, context, device, event, payload}) => {
         let submix_supported = status.mixers[serial].levels.submix_supported === true;
         let submix_enabled = (status.mixers[serial].levels.submix !== null);
 
-        // If submixes aren't supported, or enabled, always default back to channel A..
+        // If submixes aren't supported, or enabled, always default back..
         if (!submix_supported || !submix_enabled || mix === "A") {
-            let channel = ChannelNameReadable[payload.settings.channel];
+            let channel = channel_a;
+
+            // If we have a B mix setup, the user has likely disabled submixes without reconfiguring this button,
+            // so we'll fall back to the equivalent A mix for volume adjustment.
+            if (mix === "B") {
+                channel = channel_b;
+            }
+
             if (mode === "set") {
                 sendVolume(serial, channel, volume);
             } else {
@@ -37,11 +47,9 @@ changeVolume.onKeyUp(({action, context, device, event, payload}) => {
                 }
                 sendVolume(serial, channel, newVolume);
             }
-
-
         } else {
             // Submixes are enabled, and we're configured as channel B
-            let channel = ChannelNameReadable[payload.settings["sub-channel"]];
+            let channel = channel_b;
 
             if (mode === "set") {
                 sendSubVolume(serial, channel, volume)
