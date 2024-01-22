@@ -25,7 +25,7 @@ fxToggle.onKeyUp(({action, context, device, event, payload}) => {
         $SD.setState(context, payload.state);
         $SD.showAlert(context);
     } else {
-        if (status.mixers[serial].hardware.device_type !== "Full") {
+        if (status.mixers[serial].effects === null) {
             // NOT A FULL SIZED GOXLR, DO NOTHING.
             $SD.setState(context, payload.state);
             $SD.showAlert(context);
@@ -130,7 +130,7 @@ class FxMonitor {
         }
 
         // Don't do anything unless we're a full sized device.
-        if (status.mixers[this.serial].hardware.device_type !== "Full") {
+        if (status.mixers[this.serial].effects === null) {
             $SD.setImage(this.context, RedIcon);
             return;
         }

@@ -41,10 +41,10 @@ function runPlugin() {
         document.querySelector("#mixer").classList.remove("hidden");
     }
 
-    document.querySelector("#settings").classList.remove("hidden");
-
     // Set any 'Known' form values, default others.
     Utils.setFormValue(pluginSettings, document.querySelector("#fx-toggle-form"))
+
+    loadSettings();
 
     // Get all the default filled fields and store them to settings.
     pluginSettings = Utils.getFormValue(document.querySelector("#fx-toggle-form"));
@@ -54,7 +54,21 @@ function runPlugin() {
     websocket.disconnect();
 }
 
+function loadSettings() {
+    let selected = document.querySelector("#mixers").value;
+
+    if (device.mixers[selected].effects === null) {
+        document.querySelector("#no-mini").classList.remove("hidden");
+        document.querySelector("#settings").classList.add("hidden");
+    } else {
+        document.querySelector("#no-mini").classList.add("hidden");
+        document.querySelector("#settings").classList.remove("hidden");
+    }
+}
+
 document.querySelector("#mixers").addEventListener('change', (e) => {
+    loadSettings();
+
     pluginSettings = Utils.getFormValue(document.querySelector("#fx-toggle-form"));
     $PI.setSettings(pluginSettings);
 });

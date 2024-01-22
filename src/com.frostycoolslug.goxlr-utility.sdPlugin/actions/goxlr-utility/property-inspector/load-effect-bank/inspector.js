@@ -42,7 +42,6 @@ function runPlugin() {
         document.querySelector("#mixer").classList.remove("hidden");
     }
 
-    document.querySelector("#settings").classList.remove("hidden");
 
     let banks = document.querySelector("#bank");
     while (banks.hasChildNodes()) {
@@ -62,15 +61,8 @@ function runPlugin() {
     // Set any 'Known' form values, default others.
     Utils.setFormValue(pluginSettings, document.querySelector("#load-bank-form"))
 
-    // Now our settings are loaded, we can populate the preset names..
-    let selected = document.querySelector("#mixers").value;
-    let presets = device.mixers[selected].effects.preset_names;
-
-    for (let i = 0; i <= 5; i++) {
-        let key = `Preset${i + 1}`;
-        document.querySelector("#bank").childNodes[i].text = `${i + 1}: ${presets[key]}`;
-    }
-    banks.disabled = false;
+    // Load the Effect Banks and update the page..
+    loadEffectBank();
 
     // Get all the default filled fields and store them to settings.
     pluginSettings = Utils.getFormValue(document.querySelector("#load-bank-form"));
@@ -80,17 +72,35 @@ function runPlugin() {
     websocket.disconnect();
 }
 
+function loadEffectBank() {
+    let selected = document.querySelector("#mixers").value;
+
+    if (device.mixers[selected].effects === null) {
+        document.querySelector("#no-mini").classList.remove("hidden");
+        document.querySelector("#settings").classList.add("hidden");
+        return;
+    } else {
+        document.querySelector("#no-mini").classList.add("hidden");
+        document.querySelector("#settings").classList.remove("hidden");
+    }
+
+    let presets = device.mixers[selected].effects.preset_names;
+    for (let i = 0; i <= 5; i++) {
+        let key = `Preset${i + 1}`;
+        document.querySelector("#bank").childNodes[i].text = `${i + 1}: ${presets[key]}`;
+    }
+    document.querySelector("#bank").disabled = false;
+}
+
 document.querySelector("#mixers").addEventListener('change', (e) => {
+    // Update the bank list...
+    loadEffectBank();
+
     pluginSettings = Utils.getFormValue(document.querySelector("#load-bank-form"));
     $PI.setSettings(pluginSettings);
 });
 
 document.querySelector("#bank").addEventListener('change', (e) => {
-    pluginSettings = Utils.getFormValue(document.querySelector("#load-bank-form"));
-    $PI.setSettings(pluginSettings);
-});
-
-document.querySelector("#mixers").addEventListener('change', (e) => {
     pluginSettings = Utils.getFormValue(document.querySelector("#load-bank-form"));
     $PI.setSettings(pluginSettings);
 });

@@ -24,6 +24,13 @@ loadFxBank.onKeyUp(({action, context, device, event, payload}) => {
         $SD.setState(context, payload.state);
         $SD.showAlert(context);
     } else {
+        if (status.mixers[serial].effects === null) {
+            // NOT A FULL SIZED GOXLR, DO NOTHING.
+            $SD.setState(context, payload.state);
+            $SD.showAlert(context);
+            return;
+        }
+
         let currentValue = status.mixers[serial].effects.active_preset;
         console.log(bank);
         console.log(currentValue);
@@ -116,6 +123,13 @@ class FxBankMonitor {
             $SD.setImage(this.context, RedIcon);
             return;
         }
+
+        // Don't try anything if we're a mini..
+        if (status.mixers[this.serial].effects === null) {
+            $SD.setImage(this.context, RedIcon);
+            return;
+        }
+
         let value = status.mixers[this.serial].effects.active_preset;
 
 

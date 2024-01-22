@@ -25,7 +25,8 @@ $SD.onDidReceiveGlobalSettings((data => {
         status = response.Status;
         utilityOnline();
         websocket.set_patch_method(patchStatus);
-    }).catch(() => {
+    }).catch((e) => {
+        console.log(e);
         websocket.disconnect();
         retryConnection();
     })).catch(() => {
