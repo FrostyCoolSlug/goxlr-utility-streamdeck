@@ -139,6 +139,21 @@
 			"Tooltip": "Configures the Fx State on the GoXLR",
 			"UUID": "com.frostycoolslug.goxlr-utility.toggle-fx",
 			"PropertyInspectorPath": "actions/goxlr-utility/property-inspector/toggle-fx/inspector.html"
+		},
+		{
+			"Icon": "actions/goxlr-utility/assets/goxlr-white",
+			"Name": "Load Fx Preset",
+			"States": [
+				{
+					"Image": "actions/goxlr-utility/assets/goxlr-white"
+				},
+				{
+					"Image": "actions/goxlr-utility/assets/goxlr-grey"
+				}
+			],
+			"Tooltip": "Loads an Fx Preset to the GoXLR",
+			"UUID": "com.frostycoolslug.goxlr-utility.load-effect-bank",
+			"PropertyInspectorPath": "actions/goxlr-utility/property-inspector/load-effect-bank/inspector.html"
 		}
 	]
 }

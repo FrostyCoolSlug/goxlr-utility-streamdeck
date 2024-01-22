@@ -42,6 +42,7 @@ function utilityOffline() {
     routingExternalStateChange();
     muteToggleExternalStateChange();
     fxToggleExternalStateChange();
+    fxBankExternalStateChange();
     profileExternalStateChange();
     volumeMonitorExternalStateChange();
     basicExternalStateChange();
@@ -52,6 +53,7 @@ function utilityOnline() {
     routingExternalStateChange();
     muteToggleExternalStateChange();
     fxToggleExternalStateChange();
+    fxBankExternalStateChange();
     profileExternalStateChange();
     volumeMonitorExternalStateChange();
     basicExternalStateChange();
