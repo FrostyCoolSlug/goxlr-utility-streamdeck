@@ -57,6 +57,11 @@ function runPlugin() {
 function loadSettings() {
     let selected = document.querySelector("#mixers").value;
 
+    if (device.mixers[selected] === undefined) {
+        // Don't do anything for now, it should fix itself, and we'll re-trigger...
+        return;
+    }
+
     if (device.mixers[selected].effects === null) {
         document.querySelector("#no-mini").classList.remove("hidden");
         document.querySelector("#settings").classList.add("hidden");

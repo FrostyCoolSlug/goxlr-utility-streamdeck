@@ -5,11 +5,12 @@ A StreamDeck plugin for controlling a GoXLR through the [GoXLR Utility](https://
 * Mutli-Device Support
 * Load Profile
 * Load Mic Profile
+* Load FX Preset
 * Set / Adjust a Channel's Volume (includes submixes if available)
 * Set / Toggle a Route
 * Set / Toggle Fader Mute
 * Set / Toggle Microphone Mute
-* Set / Toggle FX
+* Set / Toggle FX Buttons
 
 ## Download
 The latest version can be found on the [Releases Page](https://github.com/frostycoolslug/goxlr-utility-streamdeck/releases/latest)
@@ -39,6 +40,7 @@ Once connected, you should be able to configure actions.
 
 ## Troubleshooting
 ### The Icons are Red
-This means that either the Stream Deck cannot connect to the GoXLR Utility, or the GoXLR is unplugged or not found.
+This means that either the Stream Deck cannot connect to the GoXLR Utility, the GoXLR is unplugged or not found, or a
+selected action cannot be performed on your device (For example, attempting to execute FX commands on a mini).
 Double-check the Utility to make sure it's functional and present. If you've swapped your GoXLR with another one, click
 on each of the actions, which should make them resync.

@@ -75,6 +75,11 @@ function runPlugin() {
 function loadEffectBank() {
     let selected = document.querySelector("#mixers").value;
 
+    if (device.mixers[selected] === undefined) {
+        // Don't do anything for now, this should fix itself.
+        return;
+    }
+
     if (device.mixers[selected].effects === null) {
         document.querySelector("#no-mini").classList.remove("hidden");
         document.querySelector("#settings").classList.add("hidden");

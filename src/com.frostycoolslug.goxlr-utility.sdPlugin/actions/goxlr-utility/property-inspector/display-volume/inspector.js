@@ -46,7 +46,23 @@ function runPlugin() {
     // Set any 'Known' form values, default others.
     Utils.setFormValue(pluginSettings, document.querySelector("#display-volume-form"))
 
+    loadSettings();
+
+    // Get all the default filled fields and store them to settings.
+    pluginSettings = Utils.getFormValue(document.querySelector("#display-volume-form"));
+    $PI.setSettings(pluginSettings);
+
+    // We're done, disconnect the websocket.
+    websocket.disconnect();
+}
+
+function loadSettings() {
     let current_mixer = document.querySelector("#mixers").value;
+
+    if (device.mixers[current_mixer] === undefined) {
+        // Do nothing, we'll get called when the mixer updates.
+        return;
+    }
 
     let submix_supported = device.mixers[current_mixer].levels.submix_supported === true;
     let submix_enabled = (device.mixers[current_mixer].levels.submix !== null);
@@ -65,16 +81,11 @@ function runPlugin() {
         document.querySelector("#mix").value = "A";
         document.querySelector("#mix-a").classList.remove("hidden");
     }
-
-    // Get all the default filled fields and store them to settings.
-    pluginSettings = Utils.getFormValue(document.querySelector("#display-volume-form"));
-    $PI.setSettings(pluginSettings);
-
-    // We're done, disconnect the websocket.
-    websocket.disconnect();
 }
 
 document.querySelector("#mixers").addEventListener('change', (e) => {
+    loadSettings();
+
     pluginSettings = Utils.getFormValue(document.querySelector("#display-volume-form"));
     $PI.setSettings(pluginSettings);
 });
