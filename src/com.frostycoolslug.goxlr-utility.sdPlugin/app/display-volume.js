@@ -117,8 +117,9 @@ class VolumeMonitor {
 
         let muteStatus = '';
         let muteTarget = '';
+        let channel = (this.mix === "A") ? this.channel_a : this.channel_b;
         for (const [key, value] of Object.entries(faders)) {
-            if (value.channel === this.channel_a) {
+            if (value.channel === channel) {
                 if (value.mute_state !== "Unmuted") {
                     muteStatus = "MUTED"
                     if (value.mute_state === "MutedToX") {
@@ -146,7 +147,7 @@ class VolumeMonitor {
 
         let svg = `<svg height="100" width="100">`
         if (!this.hide_name) {
-            svg += `<text fill="#fff" font-family="Monospace" font-size="26px" x="50&#37;" y="25&#37;" dominant-baseline="middle" text-anchor="middle">${this.channel_a}</text>`
+            svg += `<text fill="#fff" font-family="Monospace" font-size="26px" x="50&#37;" y="25&#37;" dominant-baseline="middle" text-anchor="middle">${channel}</text>`
         }            
         svg +=  `<text fill="#fff" font-family="Monospace" font-size="26px" x="50&#37;" y="50&#37;" dominant-baseline="middle" text-anchor="middle">${percent}&#37;</text>
                 <text fill="#e00" font-family="Monospace" font-size="20px" x="50&#37;" y="70&#37;" dominant-baseline="middle" text-anchor="middle">${muteStatus}</text>
