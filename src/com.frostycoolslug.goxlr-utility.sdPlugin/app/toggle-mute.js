@@ -1,5 +1,7 @@
 const muteToggle = new Action('com.frostycoolslug.goxlr-utility.toggle-mute');
 const muteMonitors = {};
+let longPress = null;
+const longPressDelay = 500; // 500ms
 
 /// Utility Behaviours
 function muteToggleExternalStateChange() {
@@ -9,14 +11,37 @@ function muteToggleExternalStateChange() {
     }
 }
 
-/// Activators
-muteToggle.onKeyUp(({action, context, device, event, payload}) => {
-    // Toggle the Setting..
-    let serial = payload.settings.serial;
-    let fader = payload.settings.fader;
-    let mode = payload.settings.mode;
-    let behaviour = payload.settings.behaviour;
+muteToggle.onKeyDown(({action, event, context, device, payload}) => {
+    longPress = setTimeout(() => {
+        doMute(context, payload.settings.serial, payload.settings.fader, payload.settings.mode, "MutedToAll");
+        longPress = null;
+    }, longPressDelay);
+});
 
+/// Activators
+muteToggle.onKeyUp(({action, event, context, device, payload}) => {
+    if (longPress !== null) {
+        clearTimeout(longPress);
+        doMute(context, payload.settings.serial, payload.settings.fader, payload.settings.mode, payload.settings.behaviour);
+    }
+});
+
+/// Configuration
+muteToggle.onDidReceiveSettings(({action, event, context, device, payload}) => {
+    createMuteMonitor(context, payload.settings);
+});
+
+muteToggle.onWillAppear(({action, event, context, device, payload}) => {
+    createMuteMonitor(context, payload.settings);
+});
+
+muteToggle.onWillDisappear(({action, event, context, device, payload}) => {
+   muteMonitors[context].destroy();
+   delete muteMonitors[context];
+});
+
+function doMute(context, serial, fader, mode, behaviour) {
+    // Toggle the Setting..
     if (!websocket.is_connected()) {
         console.warn("Not Connected to Utility, Unable to Execute");
         $SD.setState(context, payload.state);
@@ -50,21 +75,7 @@ muteToggle.onKeyUp(({action, context, device, event, payload}) => {
             sendMute(serial, fader, newValue);
         }
     }
-});
-
-/// Configuration
-muteToggle.onDidReceiveSettings(({action, event, context, device, payload}) => {
-    createMuteMonitor(context, payload.settings);
-});
-
-muteToggle.onWillAppear(({action, event, context, device, payload}) => {
-    createMuteMonitor(context, payload.settings);
-});
-
-muteToggle.onWillDisappear(({action, event, context, device, payload}) => {
-   muteMonitors[context].destroy();
-   delete muteMonitors[context];
-});
+}
 
 /// Monitors
 function createMuteMonitor(context, settings) {
