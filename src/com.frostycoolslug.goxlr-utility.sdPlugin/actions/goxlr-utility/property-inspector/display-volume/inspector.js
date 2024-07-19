@@ -4,6 +4,14 @@
 const websocket = new Websocket();
 let pluginSettings;
 
+$PI.onConnected((jsn) => {
+    const form = document.querySelector('#display-volume-form');
+    const {actionInfo, appInfo, connection, messageType, port, uuid} = jsn;
+    const {payload, context} = actionInfo;
+    const {settings} = payload;
+    Utils.setFormValue(settings, form);
+});
+
 /**
  * This is called once we've had our handoff from the setup code, ensuring everything is good!
  * setup will leave the websocket open for us, so we can do our thing.
@@ -67,6 +75,9 @@ function loadSettings() {
     let submix_supported = device.mixers[current_mixer].levels.submix_supported === true;
     let submix_enabled = (device.mixers[current_mixer].levels.submix !== null);
 
+    document.querySelector("#tabs").classList.remove("hidden");
+    document.querySelector("#tab1").classList.remove("hidden");
+
     if (submix_supported && submix_enabled) {
         document.querySelector("#submix").classList.remove("hidden");
 
@@ -94,6 +105,7 @@ document.querySelector("#channel").addEventListener('change', (e) => {
     pluginSettings = Utils.getFormValue(document.querySelector("#display-volume-form"));
     $PI.setSettings(pluginSettings);
 });
+
 document.querySelector("#sub-channel").addEventListener('change', (e) => {
     pluginSettings = Utils.getFormValue(document.querySelector("#display-volume-form"));
     $PI.setSettings(pluginSettings);
@@ -111,3 +123,41 @@ document.querySelector("#mix").addEventListener('change', (e) => {
     pluginSettings = Utils.getFormValue(document.querySelector("#display-volume-form"));
     $PI.setSettings(pluginSettings);
 });
+
+document.querySelector("#hide_name").addEventListener('change', (e) => {
+    pluginSettings = Utils.getFormValue(document.querySelector("#display-volume-form"));
+    $PI.setSettings(pluginSettings);
+});
+
+function activateTabs(activeTab) {
+    const allTabs = Array.from(document.querySelectorAll('.tab'));
+    let activeTabEl = null;
+    allTabs.forEach((el, i) => {
+        el.onclick = () => clickTab(el);
+        if(el.dataset?.target === activeTab) {
+            activeTabEl = el;
+        }
+    });
+    if(activeTabEl) {
+        clickTab(activeTabEl);
+    } else if(allTabs.length) {
+        clickTab(allTabs[0]);
+    }
+}
+
+function clickTab(clickedTab) {
+    const allTabs = Array.from(document.querySelectorAll('.tab'));
+    allTabs.forEach((el, i) => el.classList.remove('selected'));
+    clickedTab.classList.add('selected');
+    activeTab = clickedTab.dataset?.target;
+    allTabs.forEach((el, i) => {
+        if(el.dataset.target) {
+            const t = document.querySelector(el.dataset.target);
+            if(t) {
+                t.style.display = el == clickedTab ? 'block' : 'none';
+            }
+        }
+    });
+}
+
+activateTabs();
