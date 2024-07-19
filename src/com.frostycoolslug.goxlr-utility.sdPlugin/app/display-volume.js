@@ -67,7 +67,7 @@ class VolumeMonitor {
 
         // Monitor for Submix Enable / Disable...
         this.monitor_submix = `/mixers/${serial}/levels/submix`;
-        this.device = `/mixers/${channel_b}`
+        this.device = `/mixers/${serial}`
 
         this.fader_status = [ `/mixers/${serial}/fader_status/A/mute_state`, `/mixers/${serial}/fader_status/B/mute_state`, `/mixers/${serial}/fader_status/C/mute_state`, `/mixers/${serial}/fader_status/D/mute_state`];
 
