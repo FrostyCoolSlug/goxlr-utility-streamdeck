@@ -11,7 +11,11 @@ function muteToggleExternalStateChange() {
 }
 
 muteToggle.onKeyDown(({action, event, context, device, payload}) => {
-    let longPressDelay = status.mixers[payload.settings.serial].settings.mute_hold_duration;
+    let longPressDelay = 500; // default value
+    if (status !== undefined && status.mixers[payload.settings.serial] !== undefined) {
+        longPressDelay = status.mixers[payload.settings.serial].settings.mute_hold_duration;
+    }
+
     longPress = setTimeout(() => {
         doMute(context, payload.settings.serial, payload.settings.fader, payload.settings.mode, "MutedToAll");
         longPress = null;
