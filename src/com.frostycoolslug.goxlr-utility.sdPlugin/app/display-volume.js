@@ -69,7 +69,7 @@ class VolumeMonitor {
         this.monitor_submix = `/mixers/${serial}/levels/submix`;
         this.device = `/mixers/${serial}`
 
-        this.fader_status = [ `/mixers/${serial}/fader_status/A/mute_state`, `/mixers/${serial}/fader_status/B/mute_state`, `/mixers/${serial}/fader_status/C/mute_state`, `/mixers/${serial}/fader_status/D/mute_state`];
+        this.fader_status = `/mixers/${serial}/fader_status/`;
 
         let self = this;
         this.#event_handle = function(e) {
@@ -88,7 +88,7 @@ class VolumeMonitor {
 
     #onEvent(self, event) {
         let patch = event.patch;
-        if (patch.path === self.device || patch.path === self.monitor_a || patch.path === self.monitor_b || patch.path === self.monitor_submix || this.fader_status.includes(patch.path)) {
+        if (patch.path === self.device || patch.path === self.monitor_a || patch.path === self.monitor_b || patch.path === self.monitor_submix || patch.path.startsWith(this.fader_status)) {
             self.setState();
         }
     }
@@ -137,8 +137,6 @@ class VolumeMonitor {
                                 muteTarget = "Line Out";
                                 break;
                         }
-                    } else {
-                        muteTarget = "GLOBAL";
                     }
                 }
                 break;
