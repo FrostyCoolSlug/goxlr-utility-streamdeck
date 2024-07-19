@@ -1,7 +1,6 @@
 const muteToggle = new Action('com.frostycoolslug.goxlr-utility.toggle-mute');
 const muteMonitors = {};
 let longPress = null;
-const longPressDelay = 500; // 500ms
 
 /// Utility Behaviours
 function muteToggleExternalStateChange() {
@@ -12,6 +11,7 @@ function muteToggleExternalStateChange() {
 }
 
 muteToggle.onKeyDown(({action, event, context, device, payload}) => {
+    let longPressDelay = status.mixers[payload.settings.serial].settings.mute_hold_duration;
     longPress = setTimeout(() => {
         doMute(context, payload.settings.serial, payload.settings.fader, payload.settings.mode, "MutedToAll");
         longPress = null;
