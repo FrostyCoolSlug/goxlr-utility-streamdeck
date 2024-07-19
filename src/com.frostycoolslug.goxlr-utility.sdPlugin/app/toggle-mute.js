@@ -27,6 +27,8 @@ muteToggle.onKeyUp(({action, event, context, device, payload}) => {
     if (longPress !== null) {
         clearTimeout(longPress);
         doMute(context, payload.settings.serial, payload.settings.fader, payload.settings.mode, payload.settings.behaviour);
+    } else {
+        muteMonitors[context].setState();
     }
 });
 
