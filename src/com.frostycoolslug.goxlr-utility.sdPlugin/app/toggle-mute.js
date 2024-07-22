@@ -18,11 +18,8 @@ muteToggle.onKeyDown(({action, event, context, device, payload}) => {
             longPressDelay = status.mixers[payload.settings.serial].settings.mute_hold_duration;
             faderMuteStatus = status.mixers[payload.settings.serial].fader_status[payload.settings.fader].mute_state;
         }
-
         longPress = setTimeout(() => {
-            if (faderMuteStatus === "Unmuted") {
-                doMute(context, payload, true);
-            }
+            doMute(context, payload, true);
             longPress = null;
         }, longPressDelay);
     }
