@@ -11,26 +11,28 @@ function muteToggleExternalStateChange() {
 }
 
 muteToggle.onKeyDown(({action, event, context, device, payload}) => {
-    let longPressDelay = 500; // default value
-    let faderMuteStatus = null;
-    if (status !== undefined && status.mixers[payload.settings.serial] !== undefined) {
-        longPressDelay = status.mixers[payload.settings.serial].settings.mute_hold_duration;
-        faderMuteStatus = status.mixers[payload.settings.serial].fader_status[payload.settings.fader].mute_state;
-    }
-
-    longPress = setTimeout(() => {
-        if (faderMuteStatus === "Unmuted") {
-            doMute(context, payload.settings.serial, payload.settings.fader, payload.settings.mode, "MutedToAll");
+    if (payload.settings.mode!=="set") {
+        let longPressDelay = 500; // default value
+        let faderMuteStatus = null;
+        if (status !== undefined && status.mixers[payload.settings.serial] !== undefined) {
+            longPressDelay = status.mixers[payload.settings.serial].settings.mute_hold_duration;
+            faderMuteStatus = status.mixers[payload.settings.serial].fader_status[payload.settings.fader].mute_state;
         }
-        longPress = null;
-    }, longPressDelay);
+
+        longPress = setTimeout(() => {
+            if (faderMuteStatus === "Unmuted") {
+                doMute(context, payload, true);
+            }
+            longPress = null;
+        }, longPressDelay);
+    }
 });
 
 /// Activators
 muteToggle.onKeyUp(({action, event, context, device, payload}) => {
-    if (longPress !== null) {
+    if (payload.settings.mode == "set" || longPress !== null) {
         clearTimeout(longPress);
-        doMute(context, payload.settings.serial, payload.settings.fader, payload.settings.mode, payload.settings.behaviour);
+        doMute(context, payload);
     } else {
         muteMonitors[context].setState();
     }
@@ -50,7 +52,12 @@ muteToggle.onWillDisappear(({action, event, context, device, payload}) => {
    delete muteMonitors[context];
 });
 
-function doMute(context, serial, fader, mode, behaviour) {
+function doMute(context, payload, actionHold = false) {
+    let serial = payload.settings.serial;
+    let fader = payload.settings.fader;
+    let mode = payload.settings.mode;
+    let behaviour = payload.settings.behaviour;
+
     // Toggle the Setting..
     if (!websocket.is_connected()) {
         console.warn("Not Connected to Utility, Unable to Execute");
@@ -74,14 +81,18 @@ function doMute(context, serial, fader, mode, behaviour) {
                 $SD.setState(context, (current === "Unmuted") ? 1 : 0)
             }
         } else {
-            let current = status.mixers[serial].fader_status[fader].mute_state;
-            let newValue = "Unmuted";
+            let newValue = "";
+            if (actionHold) {
+                newValue = "MutedToAll";
+            } else {
+                let current = status.mixers[serial].fader_status[fader].mute_state;
+                newValue = "Unmuted";
 
-            // If the channel is already unmuted, execute behaviour, otherwise unmute.
-            if (current === "Unmuted") {
-                newValue = behaviour;
+                // If the channel is already unmuted, execute behaviour, otherwise unmute.
+                if (current === "Unmuted") {
+                    newValue = behaviour;
+                }
             }
-
             sendMute(serial, fader, newValue);
         }
     }
