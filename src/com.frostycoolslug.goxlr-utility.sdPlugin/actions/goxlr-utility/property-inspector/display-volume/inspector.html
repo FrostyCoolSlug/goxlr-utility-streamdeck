@@ -36,18 +36,18 @@
                 </div>
             </div>
             <hr class="tab-separator">
+            <div class="hidden sdpi-item" style="max-width: none" id="no-mixers">
+                <details class="message caution">
+                    <summary>Error: No GoXLR Devices Detected</summary>
+                </details>
+            </div>
+            <div class="hidden sdpi-item" id="mixer">
+                <div class="sdpi-item-label">Serial</div>
+                <select class="sdpi-item-value" id="mixers" name="serial" disabled="true">
+                    <option>Please Wait..</option>
+                </select>
+            </div>
             <div id="tab1" class="tab-container hidden">
-                <div class="hidden sdpi-item" style="max-width: none" id="no-mixers">
-                    <details class="message caution">
-                        <summary>Error: No GoXLR Devices Detected</summary>
-                    </details>
-                </div>
-                <div class="hidden sdpi-item" id="mixer">
-                    <div class="sdpi-item-label">Serial</div>
-                    <select class="sdpi-item-value" id="mixers" name="serial" disabled="true">
-                        <option>Please Wait..</option>
-                    </select>
-                </div>
                 <div class="hidden" id="settings">
                     <div class="sdpi-item hidden" id="submix">
                         <div class="sdpi-item-label">Mix</div>
@@ -56,7 +56,6 @@
                             <option>B</option>
                         </select>
                     </div>
-
                     <div class="sdpi-item hidden" id="mix-a">
                         <div class="sdpi-item-label">Channel</div>
                         <select class="sdpi-item-value" id="channel" name="channel">
