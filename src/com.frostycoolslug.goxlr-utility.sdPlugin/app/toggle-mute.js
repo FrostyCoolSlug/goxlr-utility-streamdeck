@@ -72,6 +72,10 @@ function doMute(context, payload, actionHold = false) {
             console.log(`Current: ${current} -> ${newValue}`);
 
             if (newValue !== current) {
+                // Rotate through unmute state because can't go from MutedToAll to MutedToX directly
+                if (current === "MutedToAll") {
+                    sendMute(serial, fader, "Unmuted");
+                }
                 sendMute(serial, fader, newValue);
             } else {
                 // Forcibly update the icon if we're not changing the setting.
