@@ -1,5 +1,5 @@
 # goxlr-utility-streamdeck
-A StreamDeck plugin for controlling a GoXLR through the [GoXLR Utility](https://github.com/GoXLR-on-Linux/goxlr-utility/),
+A StreamDeck plugin for controlling a GoXLR through the [GoXLR Utility](https://github.com/GoXLR-on-Linux/goxlr-utility/).
 Join us for discussion related to the plugin on the [GoXLR Utiltiy](https://discord.gg/BRBjkkbvmZ) discord.
 
 ## Features
