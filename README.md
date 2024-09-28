@@ -19,7 +19,7 @@ The latest version can be found on the [Releases Page](https://github.com/frosty
 ## Configuration
 
 ### Local
-If you're running your Stream Deck on the same computer as the GoXLR utility, it should automatically detect it running
+If you're running the Stream Deck app on the same computer as the GoXLR utility, it should automatically detect the utility
 and perform any configuration needed when you add your first action, and you should be good to go.
 
 ### Remote
