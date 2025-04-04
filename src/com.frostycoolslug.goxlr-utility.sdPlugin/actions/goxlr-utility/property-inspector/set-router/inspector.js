@@ -50,6 +50,15 @@ function runPlugin() {
         document.querySelector("#set-value").classList.remove("hidden");
     }
 
+    // We need to do a firmware version check to work out the correct Mix settings
+    if (firmwareSupportsMix2()) {
+        if (isDeviceMini()) {
+            document.querySelector("#sampler").remove();
+        }
+    } else {
+        document.querySelector("#mix2").remove();
+    }
+
     // Get all the default filled fields and store them to settings.
     pluginSettings = Utils.getFormValue(document.querySelector("#router-form"));
     $PI.setSettings(pluginSettings);
@@ -86,3 +95,69 @@ document.querySelector("#value").addEventListener('change', (e) => {
 
 
 
+function firmwareSupportsMix2() {
+    let current_mixer = document.querySelector("#mixers").value;
+    if (device.mixers[current_mixer] === undefined) {
+        return;
+    }
+
+    if (isDeviceMini()) {
+        return versionNewerOrEqualTo( device.mixers[current_mixer].hardware.versions.firmware, [1,3,0,0]);
+    }
+    return versionNewerOrEqualTo( device.mixers[current_mixer].hardware.versions.firmware, [1,5,0,0]);
+}
+
+function isDeviceMini() {
+    let current_mixer = document.querySelector("#mixers").value;
+    // Do this here, rather than on created() so it can update if the device changes
+    if (device.mixers[current_mixer] === undefined) {
+        return;
+    }
+
+    return device.mixers[current_mixer].hardware.device_type === "Mini";
+}
+
+function versionNewerOrEqualTo(version, comparison) {
+    // VersionNumber on the rust side requires the first two fields to be set.
+    if (version[0] > comparison[0]) {
+        return true;
+    }
+    if (version[0] < comparison[0]) {
+        return false;
+    }
+
+    if (version[1] > comparison[1]) {
+        return true;
+    }
+    if (version[1] < comparison[1]) {
+        return false;
+    }
+
+    if (version[2] !== null) {
+        if (comparison[2] !== null) {
+            if (version[2] > comparison[2]) {
+                return true;
+            }
+            if (version[2] < comparison[2]) {
+                return false;
+            }
+        } else {
+            return true;
+        }
+    } else if (comparison[2] !== null) {
+        return false;
+    }
+
+    if (version[3] !== null) {
+        if (comparison[3] !== null) {
+            if (version[3] >= comparison[3]) {
+                return true;
+            }
+        } else {
+            return true;
+        }
+    }
+
+    // If we get here, everything has matched.
+    return true;
+}

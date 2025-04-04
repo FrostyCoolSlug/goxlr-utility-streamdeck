@@ -11,7 +11,8 @@ const InputDevice = {
 
 const OutputDevice = {
     "Headphones": "Headphones",
-    "Stream Mix": "BroadcastMix",
+    "Stream Mix 1": "BroadcastMix",
+    "Stream Mix 2": "StreamMix2",
     "Line Out": "LineOut",
     "Chat Mic": "ChatMic",
     "Sampler": "Sampler",
