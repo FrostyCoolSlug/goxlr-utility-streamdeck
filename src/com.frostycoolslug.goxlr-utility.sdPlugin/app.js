@@ -46,6 +46,7 @@ function utilityOffline() {
     fxBankExternalStateChange();
     profileExternalStateChange();
     volumeMonitorExternalStateChange();
+    encoderVolumeMonitorExternalStateChange();
     basicExternalStateChange();
 }
 
@@ -57,6 +58,7 @@ function utilityOnline() {
     fxBankExternalStateChange();
     profileExternalStateChange();
     volumeMonitorExternalStateChange();
+    encoderVolumeMonitorExternalStateChange();
     basicExternalStateChange();
 }
 

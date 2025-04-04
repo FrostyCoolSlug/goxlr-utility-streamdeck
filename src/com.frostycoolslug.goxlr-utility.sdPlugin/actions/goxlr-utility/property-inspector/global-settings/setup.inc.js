@@ -1,12 +1,18 @@
 let globalSettings = [];
 let device = undefined;
+let actionController = undefined;
 
 $PI.onConnected((jsn) => {
+    console.log(JSON.stringify(jsn));
     const {actionInfo, appInfo, connection, messageType, port, uuid} = jsn;
     const {payload, context} = actionInfo;
     const {settings} = payload;
 
+    // Set what type of action we are..
+    actionController = payload.controller;
+
     pluginSettings = settings;
+    console.log(actionInfo['payload']['settings']);
     $PI.websocket.send(JSON.stringify({
         event: 'getGlobalSettings',
         context: $PI.uuid

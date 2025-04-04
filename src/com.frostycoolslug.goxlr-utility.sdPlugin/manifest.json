@@ -74,6 +74,10 @@
 		{
 			"Icon": "actions/goxlr-utility/assets/goxlr-white",
 			"Name": "Set Channel Volume",
+			"Controllers": ["Button", "Encoder"],
+			"Encoder": {
+				"layout": "$B1"
+			},
 			"States": [
 				{
 					"Image": "actions/goxlr-utility/assets/goxlr-white"

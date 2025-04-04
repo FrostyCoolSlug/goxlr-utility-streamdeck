@@ -40,7 +40,7 @@
                 </select>
             </div>
             <div class="hidden" id="settings">
-                <div class="sdpi-item">
+                <div class="sdpi-item hidden" id="mode">
                     <div class="sdpi-item-label">Mode</div>
                     <select class="sdpi-item-value" id="mode" name="mode">
                         <option value="set">Set Volume</option>
@@ -70,7 +70,7 @@
                         <option>Samples</option>
                         <option>Line Out</option>
                         <option>Headphones</option>
-                        <option>Mic Monitor</option>
+                        <option id="micMonitor">Mic Monitor</option>
                     </select>
                 </div>
                 <div class="sdpi-item hidden" id="mix-b">
@@ -86,7 +86,7 @@
                         <option>Samples</option>
                     </select>
                 </div>
-                <div class="sdpi-item">
+                <div class="sdpi-item hidden" id="volume-wrapper">
                     <div class="sdpi-item-label">Volume</div>
                     <div class="sdpi-item-value datalist" type="range">
                         <input name="volume" id="volume" type="range" min="0" max="100" value="50" list="volume-label"/>

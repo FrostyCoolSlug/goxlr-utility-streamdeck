@@ -64,10 +64,17 @@ function loadSettings() {
         return;
     }
 
+    if (actionController !== "Encoder") {
+        // We're attached to a button, so pop up things relevant..
+        document.querySelector("#mode").classList.remove("hidden");
+        document.querySelector("#volume-wrapper").classList.remove("hidden");
+    }
+
     let submix_supported = device.mixers[current_mixer].levels.submix_supported === true;
     let submix_enabled = (device.mixers[current_mixer].levels.submix !== null);
 
     if (submix_supported && submix_enabled) {
+        document.querySelector("#micMonitor").remove();
         document.querySelector("#submix").classList.remove("hidden");
 
         let mix = document.querySelector("#mix").value;
@@ -79,6 +86,7 @@ function loadSettings() {
     } else {
         document.querySelector("#mix-a").classList.remove("hidden");
     }
+    
 
     let volume = document.querySelector("#volume").value;
     document.querySelector("#volume-value").innerHTML = `${volume}%`;
@@ -97,10 +105,19 @@ document.querySelector("#mode").addEventListener('change', (e) => {
 });
 
 document.querySelector("#channel").addEventListener('change', (e) => {
+    // When the channel is changed, change the subchannel if applicable..
+    let value = e.target.value;
+    if (value !== "Line Out" && value !== "Headphones" && value !== "Mic Monitor") {
+        document.querySelector("#sub-channel").value = e.target.value;
+    }
+
     pluginSettings = Utils.getFormValue(document.querySelector("#volume-form"));
     $PI.setSettings(pluginSettings);
 });
 document.querySelector("#sub-channel").addEventListener('change', (e) => {
+    // When the Sub Channel is changed, also change the main channel
+    document.querySelector("#channel").value = e.target.value;
+
     pluginSettings = Utils.getFormValue(document.querySelector("#volume-form"));
     $PI.setSettings(pluginSettings);
 });
