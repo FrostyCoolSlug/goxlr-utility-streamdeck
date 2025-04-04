@@ -313,7 +313,11 @@ changeVolume.onWillAppear(({action, event, context, device, payload}) => {
 
 changeVolume.onWillDisappear(({action, event, context, device, payload}) => {
     destroyBasicMontior(context);
-    setupEncoder(context, payload);
+
+    if (encoderVolumeMonitors[context] !== undefined) {
+        encoderVolumeMonitors.destroy();
+        delete encoderVolumeMonitors[context];
+    }
 });
 
 function setupEncoder(context, payload) {
