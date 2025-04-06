@@ -6,7 +6,7 @@
 	"Name": "GoXLR Utility for StreamDeck",
 	"Icon": "actions/goxlr-utility/assets/goxlr-white",
 	"URL": "https://github.com/frostycoolslug/goxlr-utility-streamdeck",
-	"Version": "0.3.0",
+	"Version": "0.4.0",
 	"Software": {
 		"MinimumVersion": "5.0"
 	},
