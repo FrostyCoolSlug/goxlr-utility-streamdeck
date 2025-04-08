@@ -5,13 +5,13 @@ const mixAssignmentMonitors = {}
 function mixAssignmentExternalStateChange() {
     // We should never fully remove the mute monitors, so that when the connection comes back we can reestablish them..
     for (let monitor of Object.keys(mixAssignmentMonitors)) {
-        mixAssignmentMonitors[monitor].setState();
+        mixAssignmentMonitors[monitor].setDisplay();
     }
 }
 
 /// Activators
 toggleMixAssignment.onKeyUp(({action, context, device, event, payload}) => {
-    // Toggle the Setting..
+    // Toggle the Setting.. SD handles toggling the button state
     let serial = payload.settings.serial;
     let output = payload.settings.output;
     let newState = payload.state ? "A" : "B"
@@ -21,6 +21,11 @@ toggleMixAssignment.onKeyUp(({action, context, device, event, payload}) => {
 
 /// Configuration
 toggleMixAssignment.onDidReceiveSettings(({action, event, context, device, payload}) => {
+    // update button state to match device
+    let value = status.mixers[payload.settings.serial].levels.submix.outputs[payload.settings.output];
+    let state = (value === "A") ? 0 : 1;
+    $SD.setState(context, state)
+
     createToggleMixAssignment(context, payload.settings);
 });
 
@@ -38,7 +43,6 @@ function createToggleMixAssignment(context, settings) {
     let serial = settings.serial;
     let output = settings.output;
 
-
     if (mixAssignmentMonitors[context] !== undefined) {
         if (!mixAssignmentMonitors[context].equal(context, serial, output)) {
             mixAssignmentMonitors[context].destroy();
@@ -47,7 +51,7 @@ function createToggleMixAssignment(context, settings) {
     } else {
         mixAssignmentMonitors[context] = new ToggleMixAssignment(context, settings.serial, output);
     }
-    mixAssignmentMonitors[context].setState();
+    mixAssignmentMonitors[context].setDisplay();
 }
 
 class ToggleMixAssignment {
@@ -83,7 +87,7 @@ class ToggleMixAssignment {
         if (patch.path.startsWith(self.submixes) && patch.path.endsWith(self.output)) {
             let state = event.patch.value === "A" ? 0 : 1;
             $SD.setState(this.context, state);
-            self.setState();
+            self.setDisplay();
         }
     }
 
@@ -91,7 +95,7 @@ class ToggleMixAssignment {
         return (context === this.context && serial === this.serial && output === this.output)
     }
 
-    setState() {
+    setDisplay() {
         if (status === undefined || status.mixers[this.serial] === undefined) {
             $SD.setImage(this.context, RedIcon);
             return;
