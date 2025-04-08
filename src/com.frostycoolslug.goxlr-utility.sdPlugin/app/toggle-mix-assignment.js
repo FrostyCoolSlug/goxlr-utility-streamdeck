@@ -85,10 +85,13 @@ class ToggleMixAssignment {
     }
 
     #onEvent(self, event) {
+        console.log('event')
         let patch = event.patch;
         if (patch.path.startsWith(self.submixes)) {
-            let state = event.patch.value === "A" ? 0 : 1;
-            $SD.setState(this.context, state);
+            if (patch.path.endsWith(self.output)) {
+                let state = event.patch.value === "A" ? 0 : 1;
+                $SD.setState(this.context, state);
+            }
             self.setDisplay();
         }
     }
