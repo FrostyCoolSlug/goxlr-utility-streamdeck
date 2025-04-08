@@ -107,7 +107,7 @@
 					"Image": "actions/goxlr-utility/assets/goxlr-white"
 				},
 				{
-					"Image": "actions/goxlr-utility/assets/goxlr-grey"
+				                 	"Image": "actions/goxlr-utility/assets/goxlr-grey"
 				}
 			],
 			"Tooltip": "Configures the Mute Setting on a Fader",
@@ -128,6 +128,21 @@
 			"Tooltip": "Configures the Mute Setting for the Microphone",
 			"UUID": "com.frostycoolslug.goxlr-utility.toggle-mic-mute",
 			"PropertyInspectorPath": "actions/goxlr-utility/property-inspector/toggle-mic-mute/inspector.html"
+		},
+		{
+			"Icon": "actions/goxlr-utility/assets/goxlr-white",
+			"Name": "Toggle Mix Assignment",
+			"States": [
+				{
+					"Image": "actions/goxlr-utility/assets/goxlr-white"
+				},
+				{
+					"Image": "actions/goxlr-utility/assets/goxlr-grey"
+				}
+			],
+			"Tooltip": "Configures the Mute Setting for the Microphone",
+			"UUID": "com.frostycoolslug.goxlr-utility.toggle-mix-assignment",
+			"PropertyInspectorPath": "actions/goxlr-utility/property-inspector/toggle-mix-assignment/inspector.html"
 		},
 		{
 			"Icon": "actions/goxlr-utility/assets/goxlr-white",
