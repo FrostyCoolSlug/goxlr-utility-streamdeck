@@ -12,11 +12,13 @@ function mixAssignmentExternalStateChange() {
 /// Activators
 toggleMixAssignment.onKeyUp(({action, context, device, event, payload}) => {
     // Toggle the Setting.. SD handles toggling the button state
-    let serial = payload.settings.serial;
-    let output = payload.settings.output;
-    let newState = payload.state ? "A" : "B"
+    if (status.mixers[payload.settings.serial].levels.submix) {
+        let serial = payload.settings.serial;
+        let output = payload.settings.output;
+        let newState = payload.state ? "A" : "B"
 
-    sendMixToggle(serial, output, newState)
+        sendMixToggle(serial, output, newState)
+    }
 });
 
 /// Configuration
