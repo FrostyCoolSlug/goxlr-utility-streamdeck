@@ -84,7 +84,7 @@ class ToggleMixAssignment {
 
     #onEvent(self, event) {
         let patch = event.patch;
-        if (patch.path.startsWith(self.submixes) && patch.path.endsWith(self.output)) {
+        if (patch.path.startsWith(self.submixes)) {
             let state = event.patch.value === "A" ? 0 : 1;
             $SD.setState(this.context, state);
             self.setDisplay();
@@ -96,7 +96,7 @@ class ToggleMixAssignment {
     }
 
     setDisplay() {
-        if (status === undefined || status.mixers[this.serial] === undefined) {
+        if (status === undefined || status.mixers[this.serial] === undefined || !status.mixers[this.serial].levels.submix) {
             $SD.setImage(this.context, RedIcon);
             return;
         }
