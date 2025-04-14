@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Load Profile Settings</title>
+    <link rel="stylesheet" href="../../../../libs/css/sdpi.css"/>
+    <link rel="stylesheet" href="../global-settings/setup.css"/>
+</head>
+
+<body>
+<div class="sdpi-wrapper">
+    <div class="sdpi-item" id="please-wait">
+        <details class="message info">
+            <summary>Please Wait..</summary>
+        </details>
+    </div>
+
+    <div class="hidden alignCenter" id="configure">
+        <div class="sdpi-item" style="max-width: none">
+            <details class="message caution">
+                <summary id="message"></summary>
+            </details>
+        </div>
+        <div class="sdpi-item" style="max-width: none">
+            <button class="sdpi-item-value" id="configure_button">Configure</button>
+        </div>
+    </div>
+
+    <form id="toggle-mix-assignment-form">
+        <div id="main">
+            <div class="hidden sdpi-item" style="max-width: none" id="no-mixers">
+                <details class="message caution">
+                    <summary>Error: No GoXLR Devices Detected</summary>
+                </details>
+            </div>
+            <div class="hidden sdpi-item" id="mixer">
+                <div class="sdpi-item-label">Serial</div>
+                <select class="sdpi-item-value" id="mixers" name="serial" disabled="true">
+                    <option>Please Wait..</option>
+                </select>
+            </div>
+            <div class="hidden sdpi-item" style="max-width: none" id="no-submix">
+                <details class="message caution">
+                    <summary>Error: Submixes not enabled.</summary>
+                </details>
+            </div>
+            <div class="hidden" id="settings">
+                <div class="sdpi-item">
+                    <div class="sdpi-item-label">Output</div>
+                    <select class="sdpi-item-value" id="output" name="output">
+                        <option value="Headphones">Headphones</option>
+                        <option value="BroadcastMix">Stream Mix</option>
+                        <option id="mix2" value="StreamMix2">Stream Mix 2</option>
+                        <option value="LineOut">Line Out</option>
+                        <option value="ChatMic">Chat Mic</option>
+                        <option id="sampler" value="Sampler">Sampler</option>
+                    </select>
+                </div>
+            </div>
+            <div class="hidden sdpi-item" id="refresh" style="max-width: none">
+                <button class="sdpi-item-value">Refresh</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="sdpi-info-label hidden" style="top: -1000px" value=""></div>
+
+<!-- Stream Deck Libs -->
+<script src="../../../../libs/js/constants.js"></script>
+<script src="../../../../libs/js/prototypes.js"></script>
+<script src="../../../../libs/js/timers.js"></script>
+<script src="../../../../libs/js/utils.js"></script>
+<script src="../../../../libs/js/events.js"></script>
+<script src="../../../../libs/js/api.js"></script>
+<script src="../../../../libs/js/property-inspector.js"></script>
+<script src="../../../../libs/js/dynamic-styles.js"></script>
+
+<!-- Property Inspector Source -->
+<script src="../../../../app/sockets.js"></script>
+<script src="inspector.js"></script>
+
+<!-- This is needed to verify global settings are configured.. -->
+<script src="../global-settings/setup.inc.js"></script>
+</body>
+
+</html>
